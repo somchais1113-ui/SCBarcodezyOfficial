@@ -1,0 +1,5 @@
+:root {
+  --bg:#f3f7ff;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#d8e2f0;--line2:#b7c6dc;
+  --brand:#2563eb;--brand2:#06b6d4;--accent:#8b5cf6;--ok-bg:#ecfdf5;--ok:#047857;
+  --bad-bg:#fff1f2;--bad:#be123c;--warn-bg:#fffbeb;--warn:#92400e;--radius:22px;
+}

@@ -1,0 +1,30 @@
+/* Keep mode identity visible from the selector through the output choices. */
+.mode-btn{position:relative;font:700 16px/1.4 system-ui,sans-serif;padding:14px 25px 14px 12px;min-height:76px;border-radius:12px}
+#singleModeBtn,#singleFormSection,#singleActions{--mode:#1d4fbb;--wash:#edf4ff}
+#batchModeBtn,#batchSection,#batchActions{--mode:#663eb0;--wash:#f4effd}
+.mode-btn,.mode-btn.active{border:1px solid var(--mode);background:var(--wash);color:var(--mode);box-shadow:none}
+.mode-btn span{color:inherit;font-size:13px;font-weight:500}
+.mode-btn[aria-pressed="true"]{background:var(--mode);color:white}
+.mode-btn[aria-pressed="true"]::after{content:"✓";position:absolute;right:9px;top:12px}
+#singleFormSection,#batchSection{border-inline-start:3px solid var(--mode);padding-inline-start:12px}
+.exports{margin-top:20px;border-top:3px solid var(--mode);padding-top:12px}
+.exports h2{color:var(--mode);font-size:20px;margin:0 0 10px}
+.exports>p{font-size:13px;color:#475569;margin:0 0 10px}
+.export-group{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-top:9px}
+.export-group h3{margin:0 0 8px;font:700 15px/1.5 system-ui,sans-serif;color:var(--ink)}
+.export-group.print{background:var(--wash);border-color:color-mix(in srgb,var(--mode) 30%,white)}
+.format-buttons{display:flex;align-items:stretch;flex-wrap:wrap;gap:7px}
+.format-buttons button{min-height:42px;padding:7px 12px;border-radius:7px;border:1px solid #b8c7d9;background:white;color:#213b5b;cursor:pointer;font:600 14px/1.4 system-ui,sans-serif}
+.export-group.print button:first-child{background:var(--mode);color:white;border-color:var(--mode)}
+.format-buttons button:disabled{opacity:.46;cursor:not-allowed}
+.format-buttons button:enabled:hover{border-color:var(--mode);box-shadow:0 2px 6px #25375020}
+.mode-btn:focus-visible,.format-buttons button:focus-visible{outline:3px solid #0891b2;outline-offset:2px}
+
+.batch-format{margin:0 0 16px;padding:12px;border:1px solid var(--line);border-radius:14px;min-width:0}
+.batch-format legend{font-weight:750;padding:0 5px}
+.batch-format-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:6px}
+.batch-format-options label{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:2px 6px;margin:0;padding:9px 7px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font-size:14px;cursor:pointer}
+.batch-format-options input{width:16px;height:16px;padding:0;margin:0;accent-color:var(--mode)}
+.batch-format-options span{grid-column:2;font-size:12px;font-weight:500}
+.batch-format-options label:has(:checked){background:var(--wash);border-color:var(--mode);color:var(--mode)}
+.batch-format-options label:focus-within{outline:2px solid var(--mode);outline-offset:2px}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Template Studio · Barcodedzy</title><link rel="stylesheet" href="assets/theme.css"><link rel="stylesheet" href="assets/studio/studio.css">
+<link rel="stylesheet" href="assets/entry.css"></head><body>
+<header>
+  <div class="brand"><a href="index.html" aria-label="กลับหน้าแรก SC. BARCODEDZY" title="กลับหน้าแรก"><img class="studio-logo" src="assets/sc-barcodedzy.png" width="630" height="228" alt="SC. BARCODEDZY"></a><strong>Template Studio</strong></div>
+  <div class="top-actions"><button id="undo" title="ย้อนกลับ (⌘Z / Ctrl+Z)" aria-keyshortcuts="Meta+Z Control+Z">↶ Undo</button><button id="redo" title="ทำซ้ำ (⌘⇧Z / Ctrl+Shift+Z / Ctrl+Y)" aria-keyshortcuts="Meta+Shift+Z Control+Shift+Z Control+Y">↷ Redo</button><button id="save" class="primary">บันทึก Template</button></div>
+</header>
+<div id="sheetEditBar" hidden><strong id="sheetEditTitle"></strong><button id="sheetApply" class="primary">ใช้กับฉลากแบบนี้บน A4</button><button id="sheetCancel">ยกเลิกการแก้</button><span id="sheetEditMessage" role="status"></span></div>
+<main>
+  <details class="panel source" id="sourcePanel" open>
+    <summary>ต้นฉบับและการถอดแบบ <span id="sourceInfo"></span></summary>
+    <div class="source-grid">
+      <label class="drop" id="drop"><b>＋ วางหรือเลือกไฟล์ฉลาก</b><small>PNG · JPG · WebP · SVG · PDF</small><input id="imageFile" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,.pdf,image/png,image/jpeg,image/webp,image/svg+xml,application/pdf"></label>
+      <div class="spec"><label>ชื่อ Template<input id="name"></label><div class="pair"><label>กว้าง (mm)<input id="width" type="number" min="1" max="1000" step=".1"></label><label>สูง (mm)<input id="height" type="number" min="1" max="1000" step=".1"></label></div></div>
+      <div class="setup-actions"><label class="file">＋ เพิ่มฟอนต์ต้นฉบับ<input id="fontFile" type="file" accept=".ttf,.otf" multiple></label><small>เลือก OTF / TTF ได้หลายไฟล์ รวม Regular และ Bold ที่ใช้จริง</small><label>วิธีถอดแบบ<select id="traceMode"><option value="source">คงภาพต้นฉบับ แก้เฉพาะช่อง</option><option value="manual">คงภาพและตีกรอบช่องเอง</option><option value="vector">สร้างเลเยอร์เวกเตอร์จาก OCR</option></select></label><button id="extract" class="primary">ถอดข้อความ เส้น และบาร์โค้ด</button></div>
+    </div>
+    <small><span id="sourceSizeHint">SVG และ PDF อ่านขนาดจากไฟล์ · สำหรับภาพถ่าย ให้กรอกขนาดพิมพ์จริง</span></small><button id="lunaExample" type="button">เปิดตัวอย่างฉลาก LUNA</button>
+  </details>
+  <section class="center panel" aria-label="พื้นที่ทำงาน">
+    <div class="bar"><h1>พื้นที่ฉลาก</h1><div class="bar-controls"><select id="mode" aria-label="โหมดเปรียบเทียบ"><option value="art">งานที่แก้ไข</option><option value="print">ตัวอย่างก่อนส่งออก</option><option value="overlay">ซ้อนต้นฉบับ</option><option value="reference">ต้นฉบับ</option><option value="diff">ดูความต่าง</option></select><div class="canvas-zoom" role="group" aria-label="ซูมพื้นที่ฉลาก"><button id="zoomOut" aria-label="ซูมออก" title="ซูมออก">−</button><select id="zoom" aria-label="เปอร์เซ็นต์ซูม"><option value="0.25">25%</option><option value="0.5">50%</option><option value="0.75">75%</option><option value="1" selected>100% · พอดี</option><option value="1.25">125%</option><option value="1.5">150%</option><option value="1.75">175%</option><option value="2">200%</option><option value="2.5">250%</option><option value="3">300%</option><option value="4">400%</option><option value="5">500%</option><option value="6">600%</option><option value="8">800%</option></select><button id="zoomIn" aria-label="ซูมเข้า" title="ซูมเข้า">+</button></div><button id="expand" aria-pressed="false">ขยายพื้นที่ฉลาก</button></div></div>
+    <label class="opacity" hidden>ความทึบต้นฉบับ <input id="opacity" type="range" value="45" min="0" max="100"><output id="opacityValue">45%</output></label>
+    <div id="desk"><div id="artboard">
+      <svg id="stage" tabindex="0" aria-label="พื้นที่แก้ไขฉลาก"></svg>
+      <div id="scanOverlay" aria-hidden="true" hidden>
+        <img id="scanSource" alt=""><span class="scan-beam"></span><span id="scanLabel"></span>
+      </div>
+    </div></div>
+    <p id="status" role="status"></p>
+    <details open><summary>เลเยอร์บนฉลาก <span id="layerCount"></span></summary><div class="tools"><button id="markField" hidden>ตีกรอบช่องข้อความจากภาพ</button><button data-add="text">＋ ข้อความ</button><button data-add="rect">＋ กรอบ</button><button data-add="line">＋ เส้น</button><button data-add="barcode">＋ Barcode</button><button data-add="crop">＋ ส่วนภาพ / โลโก้</button></div><div id="layers"></div></details>
+  </section>
+  <section class="inspector panel" aria-labelledby="inspectorTitle">
+    <div class="bar"><h2 id="inspectorTitle">แก้ไขเลเยอร์</h2></div>
+    <label class="picker">เลเยอร์ที่เลือก<select id="layerPicker"></select></label><div id="inspector"></div>
+    <details id="commandPanel"><summary>คำสั่งเลื่อนและปรับตัวอักษร</summary><label>คำสั่งสำหรับเลเยอร์ที่เลือก<input id="command" placeholder="เช่น ลดสระลง 0.2 pt หรือ เลื่อนลง 0.5 mm"></label><small>ตัวอย่าง “ยกเส้นฐาน 1 pt” “สเกลแนวนอน 95%” หรือ “Kerning หลังอักษรที่ 3 -20”</small><button id="previewCmd">ดูผลคำสั่ง</button><button id="applyCmd" disabled>ยืนยัน</button><small id="proposal"></small></details>
+  </section>
+  <section class="deliver panel">
+    <h2>บันทึกและส่งออก</h2><label>รูปอักษรในไฟล์ส่งออก<select id="outlineMode"><option value="ink">เก็บทรงอักษรเดิมเป็นเส้น · คำใหม่ใช้ฟอนต์</option><option value="font">Create Outlines จากฟอนต์ทุกช่องข้อความ</option></select></label><div class="tools"><button id="svg">SVG · Outline</button><button id="pdf">PDF · ส่งพิมพ์</button><button id="png">PNG · 600 dpi</button><button id="jpg">JPG · 600 dpi</button></div>
+    <small id="printStatus" role="status">PDF ใช้เส้นเวกเตอร์และฝังภาพที่ 600 ppi ขึ้นไป</small>
+    <div class="sheet-entry"><label for="sheetCopies">จำนวนดวง<input id="sheetCopies" type="number" min="1" max="300" value="1"></label><button id="sheetAdd" class="primary">เพิ่มลง A4</button><button id="sheetOpen">ดูแผ่น A4 · 0 ดวง</button></div><small id="sheetFeedback" role="status"></small>
+    <details><summary>Template ที่บันทึก</summary><label>เลือก Template<select id="shelf"></select></label><div class="tools"><button id="load">เปิด Template</button><button id="backup">ดาวน์โหลดโปรเจกต์</button><label class="file">นำเข้าโปรเจกต์<input id="projectFile" type="file" accept=".json"></label></div></details>
+    <details><summary>ใช้ Template กับข้อมูลหลายสินค้า</summary><label>วางตารางจาก Excel พร้อมหัวคอลัมน์ตรงกับชื่อฟิลด์ในเลเยอร์<textarea id="rows" placeholder="ชื่อสินค้า&#9;GTIN"></textarea></label><button id="batch">สร้าง PDF หนึ่งฉลากต่อหน้า</button></details>
+  </section>
+</main>
+<dialog id="pdfPageDialog" aria-labelledby="pdfPageTitle">
+  <form method="dialog"><h2 id="pdfPageTitle">เลือกหน้า PDF สำหรับถอดแบบ</h2><p id="pdfPageCount"></p>
+    <label>หน้าที่ต้องการ<input id="pdfPageNumber" type="number" value="1" min="1" step="1" required></label>
+    <div class="tools"><button value="open" class="primary">ใช้หน้านี้</button><button value="cancel" formnovalidate>ยกเลิก</button></div>
+  </form></dialog>
+<dialog id="sheetDialog" aria-labelledby="sheetTitle">
+  <div class="bar"><h2 id="sheetTitle">จัดฉลากลง A4</h2><button id="sheetClose">กลับไปที่ฉลาก</button></div>
+  <p class="sheet-spec">210 × 297 มม. · ขอบ 5 มม. · ระยะห่าง 3 มม.</p>
+  <div class="sheet-layout"><div class="sheet-desk">
+    <div class="paper-nav"><button id="sheetPrev" aria-label="แผ่นก่อนหน้า">←</button><strong id="sheetPages"></strong><button id="sheetNext" aria-label="แผ่นถัดไป">→</button></div>
+    <div id="sheetPaper" aria-label="ตำแหน่งฉลากบนกระดาษ A4"></div></div>
+    <div class="sheet-controls"><p id="sheetEmpty">เพิ่มฉลากจากพื้นที่แก้ไขเพื่อเริ่มจัดแผ่น</p>
+      <div id="sheetSelection" hidden><label>แบบฉลาก<select id="sheetGroup"></select></label><p id="sheetSize"></p>
+      <div class="sheet-inline"><label>จำนวนดวงของแบบนี้<input id="sheetQty" type="number" min="1" max="300"></label><button id="sheetSetQty">ปรับจำนวน</button></div>
+      <div class="tools"><button id="sheetEdit">แก้ข้อความและบาร์โค้ด</button><button id="sheetRemove">เอาแบบนี้ออก</button></div>
+      <h3 id="sheetCopyTitle"></h3><small>เลือกดวงบนแผ่น แล้วระบุตำแหน่งจากมุมซ้ายบน</small>
+      <div class="pair"><label>X (มม.)<input id="sheetX" type="number" step="any"></label><label>Y (มม.)<input id="sheetY" type="number" step="any"></label></div>
+      <button id="sheetMove">ย้ายดวงนี้</button></div>
+      <p id="sheetMessage" role="status"></p>
+      <button id="sheetPDF" class="primary">ส่งออก PDF ขนาดจริง</button>
+      <small>ตอนพิมพ์เลือก Actual size / 100% · รายการบนแผ่นเก็บไว้ระหว่างเปิดหน้านี้</small>
+    </div>
+  </div>
+</dialog>
+<script src="assets/vendor/opentype.min.js"></script><script src="assets/vendor/jspdf.umd.min.js"></script><script src="assets/vendor/svg2pdf.umd.min.js"></script><script src="assets/studio/fonts.js"></script><script src="assets/studio/db-thaitext.js"></script><script src="assets/studio/db-thai-layout.js"></script><script src="assets/studio/thai-marks.js"></script><script src="assets/studio/thai-layout.js"></script><script src="assets/studio/ink-outline.js"></script><script src="assets/studio/print.js"></script><script src="assets/studio/barcode.js"></script><script src="assets/studio/zxing.min.js"></script><script src="assets/studio/tesseract.min.js"></script><script src="assets/studio/trace.js"></script><script src="assets/studio/font-match.js"></script><script src="assets/studio/source-art.js"></script><script src="assets/studio/export-name.js"></script><script src="assets/studio/source-import.js"></script><script src="assets/studio/mark-panel.js"></script><script src="assets/studio/editor.js"></script><script src="assets/studio/sheet.js"></script>
+</body></html>

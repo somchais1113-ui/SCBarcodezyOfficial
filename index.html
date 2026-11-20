@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="สร้างบาร์โค้ดเดี่ยวหรือหลายรายการจาก Excel หรือแก้ฉลากสินค้าจากภาพแล้วจัดลงแผ่น A4 ขนาดจริงด้วย SC Barcodezy">
+  <title>SC Barcodezy · สร้างบาร์โค้ดและแก้ฉลากสินค้า</title>
+  <link rel="stylesheet" href="assets/theme.css">
+  <link rel="stylesheet" href="assets/home.css">
+  <script src="assets/home.js" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="landing-shell"><header><div class="frame"><img class="logo" src="assets/sc-barcodedzy.png" width="630" height="228" alt="SC Barcodezy"></div></header>
+  <main class="frame">
+    <h1>สร้างบาร์โค้ด <span>หรือแก้ฉลากสินค้า?</span></h1>
+    <div class="choices">
+      <section aria-labelledby="barcode-title">
+        <div class="stage barcode-stage" role="group" aria-label="ตัวอย่างฉลากบาร์โค้ด">
+          <div class="barcode-art">
+            <img class="barcode-sample current" src="examples/reference-80x34.jpg" alt="ตัวอย่างฉลากสินค้า EAN-13">
+            <img class="barcode-sample" src="assets/gtin-level-3.png" alt="ตัวอย่างฉลาก GTIN Level 3" aria-hidden="true">
+            <img class="barcode-sample" src="assets/gtin-level-4.png" alt="ตัวอย่างฉลาก GTIN Level 4" aria-hidden="true">
+          </div>
+          <div class="slides" hidden>
+            <button type="button" data-slide="0" aria-label="ดูตัวอย่าง EAN-13" aria-pressed="true"></button>
+            <button type="button" data-slide="1" aria-label="ดูตัวอย่าง GTIN Level 3" aria-pressed="false"></button>
+            <button type="button" data-slide="2" aria-label="ดูตัวอย่าง GTIN Level 4" aria-pressed="false"></button>
+            <button class="pause" type="button" aria-label="พักการสลับภาพ"></button>
+          </div>
+        </div>
+        <div class="body">
+          <h2 id="barcode-title">สร้างบาร์โค้ด</h2>
+          <p>มีเลขสินค้าแล้ว? สร้างบาร์โค้ดใบเดียว หรือวางข้อมูลหลายรายการจาก Excel</p>
+          <nav aria-label="เลือกวิธีสร้างบาร์โค้ด">
+            <a class="button solid" href="barcode.html">สร้างใบเดียว <span aria-hidden="true">→</span></a>
+            <a class="button outline" href="barcode.html?mode=batch">สร้างเป็นชุด <span aria-hidden="true">→</span></a>
+          </nav>
+        </div>
+      </section>
+      <section aria-labelledby="studio-title">
+        <figure class="stage studio-stage" role="img" aria-label="ตัวอย่างฉลาก LUNA เปลี่ยนช่องราคาเป็น 39 บาท แล้ววางฉลากสองแบบบนกระดาษ A4">
+          <div class="studio-art" aria-hidden="true">
+            <div class="label-work">
+              <img src="assets/luna-original.png" width="2048" height="729" alt="">
+              <img class="edited" src="examples/LUNA-price-39.png" width="2048" height="729" alt="">
+              <div class="field"><i></i><i></i><i></i><i></i><b>39 บาท</b></div>
+            </div>
+            <div class="sheet-preview">
+              <div class="sheet"><img src="assets/luna-original.png" alt=""><img src="examples/LUNA-price-39.png" alt=""></div>
+            </div>
+          </div>
+        </figure>
+        <div class="body">
+          <h2 id="studio-title">แก้ไขฉลากสินค้า</h2>
+          <p>เริ่มจากภาพฉลาก แก้ข้อความ ราคา และบาร์โค้ด แล้วจัดหลายสินค้าลง A4 ขนาดจริง</p>
+          <div class="actions"><a class="button solid" href="studio.html">เปิด Template Studio <span aria-hidden="true">→</span></a>
+          <button class="replay" hidden type="button" aria-label="ดูตัวอย่างการแก้ฉลาก LUNA อีกครั้ง"><span aria-hidden="true">↻</span> ดูตัวอย่างซ้ำ</button></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="credit frame" lang="en">Create and Develop by Somchai Somphiw-SCworks</footer>
+  </div>
+</body>
+</html>
