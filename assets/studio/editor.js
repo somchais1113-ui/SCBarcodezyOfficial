@@ -67,7 +67,7 @@ function applyFace(o,match){
 }
 function note(s){$('status').textContent=s;}
 function snapshot(){return {data:JSON.stringify(project),selected};}
-function snap(){history.push(snapshot());if(history.length>30)history.shift();future=[];pending=null;}
+function snap(before=snapshot()){history.push(before);if(history.length>30)history.shift();future=[];pending=null;}
 function current(){return project.layers.find(o=>o.id===selected);}
 function assertUnlocked(){if(current()?.locked)throw Error('ปลดล็อกเลเยอร์ก่อนแก้ไข');}
 function dataFont(key){
@@ -81,7 +81,9 @@ function dataFont(key){
 }
 function validateProject(p){
   if(!p||p.format!=='barcodedzy-template'||p.version!==1||!Array.isArray(p.layers)||p.layers.length>600)throw Error('รูปแบบโปรเจกต์ไม่รองรับ');
-  for(const k of ['width','height'])if(!(p[k]>=1&&p[k]<=1000))throw Error('ตรวจขนาดฉลาก 1–1000 mm');
+  p.fonts??={};
+  if(typeof p.fonts!=='object'||Array.isArray(p.fonts)||Object.values(p.fonts).some(v=>typeof v!=='string'||!v.length))throw Error('ข้อมูลฟอนต์ของ Template ไม่ถูกต้อง');
+  for(const k of ['width','height'])if(!(Number.isFinite(p[k])&&p[k]>=1&&p[k]<=1000))throw Error('ตรวจขนาดฉลาก 1–1000 mm');
   if(p.importSize&&(!['width','height','dpi'].every(k=>Number.isFinite(p.importSize[k])&&p.importSize[k]>0)||typeof p.importSize.reason!=='string'))throw Error('ข้อมูลขนาดต้นฉบับไม่ถูกต้อง');
   if(p.numerals&&!Object.entries(p.numerals).every(([key,g])=>/^[0-9.,-]$/.test(key)&&bitmap(g.data)&&[g.w,g.h,g.bottom].every(Number.isFinite)))throw Error('ต้นแบบตัวเลขไม่ถูกต้อง');
   if(p.backdrop&&!bitmap(p.backdrop))throw Error('ภาพพื้นของ Template ไม่ถูกต้อง');
@@ -89,6 +91,8 @@ function validateProject(p){
   if(!ThaiMarks.validProfiles(p.thaiProfiles))throw Error('โปรไฟล์เครื่องหมายไทยไม่ถูกต้อง');
   const ids=new Set();
   for(const o of p.layers){
+    if(!o||typeof o!=='object')throw Error('เลเยอร์ไม่ถูกต้อง');
+    if(o.type==='text'&&!Object.hasOwn(p.fonts,o.font)&&!Object.hasOwn(labelFonts,o.font))throw Error('ไม่พบฟอนต์ '+o.font+' ในไฟล์ Template');
     if(!ThaiMarks.valid(o.markTuning))throw Error('ค่าตำแหน่งเครื่องหมายไทยไม่ถูกต้อง');
     o.markDrop??=0;
     if(!Number.isFinite(o.markDrop)||Math.abs(o.markDrop)>100000)throw Error('ระยะสระไทยไม่ถูกต้อง');
@@ -417,12 +421,30 @@ async function restore(p,preferred=null){validateProject(p);const next=p.referen
     if(!o.sourcePatch&&o.refRegion&&o.referenceText===undefined)o.referenceText=o.text;
     await SourceArt.recoverQuantity(o);
   }
-  project=p;image=next;selected=p.layers.some(o=>o.id===preferred)?preferred:p.layers[0]?.id||null;parsedFonts.clear();matchCache=new WeakMap();
-  // Older OCR templates only stored their positioned ink box. Recover it for comparison.
-  if(next)for(const o of p.layers)if(o.type==='text'&&Number.isFinite(o.confidence)&&o.refRegion===undefined){
-    o.refRegion=regionFor(localInkBox(o));o.referenceText??=o.text;
+  const previous={project,image,selected,parsedFonts,matchCache};
+  try{
+    project=p; image=next; selected=p.layers.some(o=>o.id===preferred)?preferred:p.layers[0]?.id||null;
+    parsedFonts=new Map(); matchCache=new WeakMap();
+    if(next)for(const o of p.layers)if(o.type==='text'&&Number.isFinite(o.confidence)&&o.refRegion===undefined){
+      o.refRegion=regionFor(localInkBox(o));o.referenceText??=o.text;
+    }
+    render();
+  }catch(err){
+    ({project,image,selected,parsedFonts,matchCache}=previous);
+    render();
+    throw err;
   }
-  render();}
+}
+async function openSavedProject(p){
+  validateProject(p);
+  for(const [name,bytes] of Object.entries(p.fonts)){
+    try{opentype.parse(Uint8Array.from(atob(bytes),c=>c.charCodeAt(0)).buffer);}
+    catch{throw Error('เปิดฟอนต์ '+name+' ในไฟล์ Template ไม่ได้');}
+  }
+  const before=snapshot();
+  await restore(p);
+  snap(before);$('undo').disabled=false;$('redo').disabled=true;
+}
 let importing=false;
 async function setRef(f){
   if(!f||importing||busy)return;
@@ -769,9 +791,11 @@ $('previewCmd').onclick=guard(()=>{const o=current();if(!o)throw Error('เล�
 $('command').oninput=()=>{pending=null;$('applyCmd').disabled=true;$('proposal').textContent='';};
 $('applyCmd').onclick=guard(()=>{if(!pending||pending.id!==selected)return;const c=pending.changes,o=current();assertUnlocked();snap();moveMembers(o,(c.x??o.x)-o.x,(c.y??o.y)-o.y);Object.assign(o,c);render();note('ใช้คำสั่งแล้ว');});
 $('save').onclick=guard(async()=>{await database('put',validateProject(project));await refreshShelf();note('บันทึก Template ในเครื่องแล้ว');});
-$('load').onclick=guard(async()=>{const p=await database('get',$('shelf').value);if(!p)throw Error('ยังไม่มี Template ที่บันทึก');snap();await restore(p);note('เปิด '+p.name);});
+$('load').onclick=guard(async()=>{const p=await database('get',$('shelf').value);if(!p)throw Error('ยังไม่มี Template ที่บันทึก');await openSavedProject(p);note('เปิด '+p.name);});
 $('backup').onclick=()=>download(StudioExportName.filename(project,project.layers,'template.json'),new Blob([JSON.stringify(project)],{type:'application/json'}));
-$('projectFile').onchange=guard(async e=>{const f=e.target.files[0];if(!f)return;const p=validateProject(JSON.parse(await f.text()));snap();await restore(p);note('เปิดโปรเจกต์แล้ว');});
+$('projectFile').onchange=guard(async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;let p;
+  try{p=JSON.parse(await f.text());}catch{throw Error('อ่านไฟล์โปรเจกต์ไม่ได้ กรุณาเลือกไฟล์ Template JSON');}
+  await openSavedProject(p);note('เปิดโปรเจกต์แล้ว');});
 let printingFile=false;
 async function printFile(action){
   if(printingFile||busy)return;

@@ -121,5 +121,5 @@ const StudioSourceImport=(()=>{
     if(file.type==='image/svg+xml'||ext==='svg')return 'svg';
     return 'bitmap';
   }
-  return {kind,svgFile,pdfFile};
+  return {kind,svgFile,pdfFile,geometry};
 })();

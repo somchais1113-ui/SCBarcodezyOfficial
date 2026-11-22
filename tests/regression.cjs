@@ -14,7 +14,7 @@ w.HTMLCanvasElement.prototype.getContext=function(){if(!this.__canvas||this.__ca
 w.HTMLCanvasElement.prototype.toBlob=function(cb,mime,quality){const buffer=this.__canvas.toBuffer(mime,mime==='image/jpeg'?Math.round((quality||.95)*100):undefined);cb(new Blob([buffer],{type:mime}));};
 w.Image=class{set src(value){urls.get(value).arrayBuffer().then(bytes=>canvasLib.loadImage(Buffer.from(bytes))).then(img=>{this.__native=img;this.onload();}).catch(e=>this.onerror(e));}};
 let printed='';w.print=()=>{printed=w.document.getElementById('printSheetRoot').innerHTML;w.dispatchEvent(new w.Event('afterprint'));};
-for(const file of ['assets/vendor/jspdf.umd.min.js','assets/vendor/opentype.min.js','assets/vendor/svg2pdf.umd.min.js','assets/js/app.js'])w.eval(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['assets/vendor/jspdf.umd.min.js','assets/vendor/opentype.min.js','assets/vendor/svg2pdf.umd.min.js','assets/js/zip-store.js','assets/js/app.js'])w.eval(fs.readFileSync(path.join(root,file),'utf8'));
 const get=id=>w.document.getElementById(id),put=(id,v)=>get(id).value=String(v);
 const check=(name,fn)=>{fn();checks.push(name);};
 const resetBatch=()=>{for(const e of w.document.querySelectorAll('#batchSection textarea'))e.value='';};
@@ -25,6 +25,17 @@ async function saveDownloads(){for(const d of downloads.splice(0))fs.writeFileSy
  check('EAN known vector, auto checksum and rejection',()=>{assert.equal(w.normalizeEAN13('400638133393').value,'4006381333931');assert.equal(w.ean13Bits('4006381333931').length,95);for(const x of ['4006381333932','ABC400638133393','1.234E+12','123'])assert.throws(()=>w.normalizeEAN13(x));});
  check('Manual GTIN retained independently',()=>{const d=w.collectData();assert.equal(w.getITF14(d).value,'38851907345397');assert.equal(w.getITF14({...d,manualItf14:''}).value,'38851907346493');assert.throws(()=>w.getITF14({...d,manualItf14:'38851907345398'}));});
  resetBatch();w.setMode('batch');check('Empty batch cannot export a fallback preview',()=>{assert(w.validateData(w.getPreviewData()).length>0);assert.throws(()=>w.batchForExport());});put('batchGtin13List','8851907346492\n8851907346522');
+ check('Batch QTY accepts thousands separators and preserves the printed value',()=>{
+   put('batchQtyList','1,200\n1200');
+   const {selectedItems}=w.batchForExport();
+   assert.deepEqual(Array.from(selectedItems,item=>item.qty),['1,200','1200']);
+   for(const item of selectedItems)assert(w.buildPhysicalSVG(item,false,'#ffffff').includes(item.qty));
+   const item=selectedItems[0];
+   assert.equal(w.validateData({...item,qty:'1,200,000'}).length,0);
+   for(const qty of ['0','-1','1.2','1,20','12,00','1,,200','1,200,','0,000'])
+     assert(w.validateData({...item,qty}).some(issue=>issue.includes('QTY')));
+   put('batchQtyList','');
+ });
  check('Blank batch Manual derives each GTIN separately',()=>{const b=w.parseBatchItems();assert.equal(b.items.length,2);assert(b.items.every(x=>x.manualItf14===''));assert.notEqual(w.getITF14(b.items[0]).value,w.getITF14(b.items[1]).value);});
  put('batchGtin13List','8851907346492\n8851907346522\n8851907000004');put('batchTitleList','A\nB\nC');put('batchQtyList','10\n\n30');
  check('Blank row stays at original index',()=>{const b=w.parseBatchItems();assert.deepEqual(Array.from(b.items,x=>x.qty),['10','','30']);assert(w.validateData(b.items[1]).some(x=>x.includes('QTY')));assert.throws(()=>w.batchForExport());});

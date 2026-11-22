@@ -34,7 +34,7 @@ const StudioPrint = (() => {
     node.replaceWith(group);
   }
   function session() {
-    const images=new Map(), traces=new Map(), resampled=new Map();
+    const images=new Map(), traces=new Map(), resampled=new Map(), orientations=new Map();
     function remember(map,key,make) {
       if(!map.has(key)){
         if(map.size>=128)map.delete(map.keys().next().value);
@@ -64,7 +64,7 @@ const StudioPrint = (() => {
         lowest=Math.min(lowest,native);
         const pw=format==='pdf'?Math.max(img.naturalWidth,Math.ceil(w*dpi/25.4)):img.naturalWidth;
         const ph=format==='pdf'?Math.max(img.naturalHeight,Math.ceil(h*dpi/25.4)):img.naturalHeight;
-        const convert=url.startsWith('data:image/webp;')||pw!==img.naturalWidth||ph!==img.naturalHeight;
+        const convert=url.startsWith('data:image/webp;')||pw!==img.naturalWidth||ph!==img.naturalHeight||(url.startsWith('data:image/jpeg;')&&remember(orientations,url,()=>JpegOrientation.fromDataURL(url))>1);
         if(convert) {
           const result=remember(resampled,pw+'x'+ph+'|'+url,()=>{
             const c=canvas(pw,ph),ctx=c.getContext('2d');ctx.imageSmoothingQuality='high';ctx.drawImage(img,0,0,pw,ph);
