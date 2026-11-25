@@ -1,3 +1,7 @@
+## V2.3.4 — Carton Compact Workspace & Rendering Hotfix
+
+See `CARTON_V2.3.4_CHANGELOG.md` for changes and tests. Other modules are unchanged.
+
 ## V2.3.2 — Carton Production Update
 
 See `CARTON_V2.3.2_CHANGELOG.md` for current Carton features, production limitations and verified tests. Other modes are unchanged.

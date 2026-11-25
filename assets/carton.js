@@ -192,11 +192,13 @@ for(const [id,k] of [['ix','x'],['iy','y'],['iw','w']])$(id).onchange=()=>{if($(
 $('lines').addEventListener('change',redraw);
 document.querySelectorAll('#dims input,#spec input,#type,#basis,#tape').forEach(e=>e.addEventListener('input',redraw));
 const canvas=$('model');
+// Keep the backing store proportional to its actual display size (no CSS stretching).
+function resizeModel(){const r=canvas.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);const w=Math.max(1,Math.round(r.width*dpr)),h=Math.max(1,Math.round(r.height*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}render3();}
 let hitFaces=[],turnStart=null;
 function render3(target=canvas){
  if(target===canvas)hitFaces=[];
  const ctx=target.getContext('2d'),W=target.width,H=target.height;
- ctx.fillStyle='#edf1f5';ctx.fillRect(0,0,W,H);if(!g)return;
+ ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);ctx.fillStyle='#edf1f5';ctx.fillRect(0,0,W,H);if(!g)return;
  const {l,w,h,f}=g,scale=Math.min(W,H)*.83*mag/Math.hypot(l,w,h);
  const ca=Math.cos(yaw),sa=Math.sin(yaw),cb=Math.cos(pitch),sb=Math.sin(pitch);
  function project(x,y,z){
@@ -227,14 +229,14 @@ function render3(target=canvas){
    a.part===b.part&&a.part!=='wall'?(a.exterior?1:-1)*(b.i%2-a.i%2):0)||a.depth-b.depth);
  for(const {i,part,box,p,q,r,v,exterior} of surfaces){
   if(target===canvas&&exterior)hitFaces.push({i,points:[p,q,v,r]});
-  ctx.save();ctx.setTransform((q[0]-p[0])/box.w,(q[1]-p[1])/box.w,(r[0]-p[0])/box.h,(r[1]-p[1])/box.h,p[0],p[1]);
+  ctx.save();try{ctx.setTransform((q[0]-p[0])/box.w,(q[1]-p[1])/box.w,(r[0]-p[0])/box.h,(r[1]-p[1])/box.h,p[0],p[1]);
   ctx.fillStyle=!exterior?'#ae8c60':part==='top'?'#ddc59e':part==='bottom'?'#b99b70':['#d3b488','#c09d70','#c7a67a','#ba986c'][i];ctx.fillRect(0,0,box.w,box.h);
   ctx.strokeStyle='#957955';ctx.lineWidth=.8;ctx.strokeRect(0,0,box.w,box.h);
   if(exterior){
    for(const o of visibleItems().filter(o=>o.i===i&&o.part===part)){const a=assets[o.asset];if(!a.img.complete||!a.img.naturalWidth)continue;ctx.drawImage(inkMode()==='original'?a.img:inkPreview(a).canvas,o.x,o.y,o.w,o.w/a.ratio);}
    if($('tape').checked&&part!=='wall'&&i%2===0&&Math.abs(g.w-2*f)<.01){const band=Math.min(num('band')/2,f);ctx.fillStyle='rgba(177,149,96,.48)';ctx.fillRect(0,part==='top'?0:f-band,box.w,band);}
   }
-  ctx.restore();
+  }finally{ctx.restore();}
  }
 }
 let turn=null;
@@ -338,6 +340,7 @@ function buildInkCompact(){
  compact.after($('inkHint'));
  $('inkHint').classList.add('compact');
  inkLabel.hidden=true;
+ compact.append(inkLabel); // Keep the original select in the DOM for the production engine.
  inkGroup.remove();
  for(const btn of compact.querySelectorAll('.ink-chip'))btn.onclick=()=>{$('inkMode').value=btn.dataset.mode;$('inkMode').dispatchEvent(new Event('change'));};
  window.syncInkCompact=()=>{for(const btn of compact.querySelectorAll('.ink-chip'))btn.classList.toggle('is-active',btn.dataset.mode===inkMode());};
@@ -348,27 +351,23 @@ function cloneAsset(asset){
  return {...asset,img,vector:asset.vector?asset.vector.cloneNode(true):null,value:typeof asset.value==='object'?JSON.parse(JSON.stringify(asset.value)):asset.value};
 }
 function cloneItemData(index){
- const o=items[index],a=assets[o.asset];if(!o||o.locked)return null;
+ const o=items[index];if(!o||o.locked)return null;const a=assets[o.asset];
  return {item:{...o,locked:false,groupId:undefined},asset:cloneAsset(a)};
 }
-async function tryWriteClipboard(){try{await navigator.clipboard.writeText('SCBarcodezy Carton Object');}catch{}}
-function copyActive(){const data=cloneItemData(active);if(!data)return false;clipboardItem=data;tryWriteClipboard();$('status').textContent='คัดลอกองค์ประกอบแล้ว';return true;}
-function pasteCopied(){if(!clipboardItem||!g)return false;const assetIndex=assets.push(cloneAsset(clipboardItem.asset))-1;const o={...clipboardItem.item,asset:assetIndex,x:clipboardItem.item.x+8,y:clipboardItem.item.y+8};items.push(o);active=items.length-1;face=o.i;constrain(o);redraw();$('status').textContent='วางองค์ประกอบแล้ว';return true;}
+function copyActive(){const data=cloneItemData(active);if(!data)return false;clipboardItem=data;$('status').textContent='คัดลอกองค์ประกอบแล้ว';return true;}
+function pasteCopied(){if(!clipboardItem||!g)return false;const a=cloneAsset(clipboardItem.asset),assetIndex=assets.push(a)-1;const o={...clipboardItem.item,asset:assetIndex,x:clipboardItem.item.x+8,y:clipboardItem.item.y+8};items.push(o);active=items.length-1;face=o.i;constrain(o);$('acceptConversion').checked=false;redraw();a.img.decode().then(redraw).catch(()=>{});$('status').textContent='วางองค์ประกอบแล้ว';return true;}
 function isTextField(el){return !!el && (el.tagName==='INPUT'||el.tagName==='TEXTAREA'||el.tagName==='SELECT'||el.isContentEditable);}
-async function pasteClipboardImage(e){
- const dt=e.clipboardData;if(!dt)return false;
- const files=[];for(const item of dt.items||[]){if(item.kind==='file'){const f=item.getAsFile();if(f)files.push(f);}}
- if(!files.length)return false;e.preventDefault();await queueFiles(files);return true;
-}
-document.addEventListener('keydown',async e=>{
- const mod=e.metaKey||e.ctrlKey;if(!mod)return;
- const key=e.key.toLowerCase();
- if(key==='c'&&!isTextField(document.activeElement)){if(copyActive())e.preventDefault();return;}
- if(key==='v'&&!isTextField(document.activeElement)){if(await pasteClipboardImage(e))return;if(pasteCopied())e.preventDefault();return;}
-});
+document.addEventListener('keydown',e=>{if(!(e.metaKey||e.ctrlKey)||e.altKey||isTextField(document.activeElement)||document.querySelector('dialog[open]'))return;if(e.key.toLowerCase()==='c'&&copyActive())e.preventDefault();else if(e.key.toLowerCase()==='v'&&clipboardItem&&pasteCopied())e.preventDefault();});
+document.addEventListener('paste',e=>{if(isTextField(document.activeElement)||document.querySelector('dialog[open]'))return;const files=Array.from(e.clipboardData?.files||[]).filter(f=>f.type.startsWith('image/')||f.type==='application/pdf');if(files.length){e.preventDefault();queueFiles(files);}});
 
 function moveClipboardHint(){const target=itemGroup.querySelector('h2');const note=document.createElement('small');note.className='clipboard-note';note.textContent='คีย์ลัด: Ctrl/Cmd + C เพื่อคัดลอก · Ctrl/Cmd + V เพื่อวาง';itemGroup.append(note);}
 
 buildInkCompact();moveClipboardHint();
 $('toggleTools').onclick=()=>{toolBody.hidden=!toolBody.hidden;$('toggleTools').setAttribute('aria-expanded',String(!toolBody.hidden));$('toggleTools').textContent=toolBody.hidden?'แสดงเครื่องมือ':'ซ่อนเครื่องมือ';};
-redraw();scale3(1);scaleFlat(1);$('inkMode').onchange();if(window.syncInkCompact)window.syncInkCompact();
+const exportDialog=$('exportDialog');
+$('openExport').onclick=()=>{updatePreflight();$('exportStatus').textContent='';exportDialog.showModal();};
+$('closeExport').onclick=()=>exportDialog.close();
+new MutationObserver(()=>{$('exportStatus').textContent=$('status').textContent;}).observe($('status'),{childList:true,characterData:true,subtree:true});
+// Preview-only geometry; the production exporter continues to use the original dimensions.
+new ResizeObserver(resizeModel).observe(canvas);
+redraw();scale3(1);scaleFlat(1);$('inkMode').onchange();if(window.syncInkCompact)window.syncInkCompact();resizeModel();
