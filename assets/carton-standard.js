@@ -1,7 +1,7 @@
 /* All generated artwork is transparent, portable SVG geometry, including label text. */
 const CartonStandard=(()=>{
  const {glyphs,refs}=CartonStandardArt,ns='http://www.w3.org/2000/svg';
- const definitions=[['stack','Stacking Limit'],['dry','Keep Dry'],['up','Up Arrow'],['care','Handle with Care'],['dhas','DHAS Shipping Mark']];
+ const definitions=[['stack','Stacking Limit'],['dry','Keep Dry'],['up','Up Arrow'],['care','Handle with Care'],['dhas','DHAS Shipping Mark'],['set','Standard Symbol Set']];
  function textShape(text){let x=0,paths='';for(const c of text){const g=glyphs[c];if(!g)continue;if(g[1])paths+=`<path d="${g[1]}" transform="translate(${x} 0)"/>`;x+=g[0];}return {w:x,paths};}
  function line(text,cx,baseline,maxWidth,size,attrs='fill="black"'){
   const t=textShape(text),s=Math.min(size,maxWidth/(t.w||1));return `<g ${attrs} transform="translate(${cx-t.w*s/2} ${baseline}) scale(${s})">${t.paths}</g>`;
@@ -10,7 +10,9 @@ const CartonStandard=(()=>{
  function art(kind,value,rotation=0){
   let w,h,body;const ref=refs[kind];
   const traced=r=>`<path fill="black" fill-rule="evenodd" d="${r.d}"/>`;
-  if(kind==='size'){
+  if(kind==='set'){
+   const v=typeof value==='object'?value:{count:'4',gap:5/35};const step=470*(1+Math.max(0,Number(v.gap)||0));w=470+2*step;h=470;body=['stack','dry','up'].map((k,i)=>{const a=art(k,v.count);const inner=a.svg.slice(a.svg.indexOf('>')+1,-6);return `<g transform="translate(${i*step} 0) scale(${470/a.w} ${470/a.h})">${inner}</g>`;}).join('');
+  }else if(kind==='size'){
    const t='SIZE : '+value+' mm.',f=58;w=Math.ceil(textShape(t).w*f+42);h=108;
    body=`<rect x="3" y="3" width="${w-6}" height="${h-6}" fill="none" stroke="black" stroke-width="6"/>`+line(t,w/2,77,w-40,f);
   }else if(kind==='dhas'){
@@ -27,7 +29,7 @@ const CartonStandard=(()=>{
  function asset(kind,value,rotation=0){
   const {w,h,svg}=art(kind,value,rotation),img=new Image(),url='data:image/svg+xml;base64,'+btoa(svg);
   const a={name:kind==='size'?'SIZE · อัตโนมัติ':definitions.find(d=>d[0]===kind)[1],url,img,vector:portableVector(svg),ratio:w/h,standard:kind,value,rotation};
-  img.onload=()=>{if(typeof g!=='undefined'&&g){if(items.some(o=>assets[o.asset]===a)){drawing($('flat'),true,true);render3();}}};img.src=url;return a;
+  img.onload=()=>{if(typeof g!=='undefined'&&g){if(items.some(o=>assets[o.asset]===a)){drawing($('flat'),true,true);render3();if(typeof updatePreflight==='function')updatePreflight();}}};img.src=url;return a;
  }
  return {definitions,art,asset,country};
 })();

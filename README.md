@@ -1,3 +1,7 @@
+## V2.3.2 — Carton Production Update
+
+See `CARTON_V2.3.2_CHANGELOG.md` for current Carton features, production limitations and verified tests. Other modes are unchanged.
+
 # SC Barcodezy V2.3 · Template Studio
 
 เลือกเลเยอร์ข้อความ → **จัดสระและวรรณยุกต์อัตโนมัติ** → เลือกตัวอย่าง ข้อ / ชี้ / น้ำ แล้วปรับลูกศรครั้งละ 0.5% ของขนาดฟอนต์ ค่าจะใช้กับข้อความที่วาดด้วยฟอนต์และน้ำหนักเดียวกันในเทมเพลต เมื่อบันทึกเทมเพลต ระบบจะเก็บค่าไว้ด้วย

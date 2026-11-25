@@ -276,5 +276,5 @@ const CartonPDF=(()=>{
    await page.render({canvas:c,canvasContext:c.getContext('2d',{alpha:true}),viewport:view,transform:[1,0,0,1,-b.left*scale,b.top*scale-view.height],background:'rgba(0,0,0,0)'}).promise;return c.toDataURL('image/png');
   }finally{await task.destroy();}
  }
- return {open,compose,svgBitmap,load,analyze,component,Resources};
+ return {open,compose,svgBitmap,load,analyze,component,Resources,operations,decoded};
 })();

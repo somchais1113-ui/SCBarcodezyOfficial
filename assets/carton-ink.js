@@ -1,29 +1,29 @@
 // Render a proof on kraft. Production output uses each original asset as a PDF luminosity mask.
 const CartonInk=(()=>{
  const blue=[27,65,137],black=[0,0,0],cache=new WeakMap(),pt=72/25.4;
- function tint(img,w,h,ink){
+ function tint(img,w,h,ink,hex){
   const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0,w,h);
-  const pixels=ctx.getImageData(0,0,w,h),d=pixels.data,rgb=ink==='black'?black:blue;
+  const pixels=ctx.getImageData(0,0,w,h),d=pixels.data,rgb=ink==='black'?black:(hex&&/^#[0-9a-f]{6}$/i.test(hex)?hex.slice(1).match(/../g).map(x=>parseInt(x,16)):blue);
   for(let i=0;i<d.length;i+=4){
    const light=(.30*d[i]+.59*d[i+1]+.11*d[i+2])/255;
    d[i+3]=Math.round(d[i+3]*(1-light));d[i]=rgb[0];d[i+1]=rgb[1];d[i+2]=rgb[2];
   }
   ctx.putImageData(pixels,0,0);return {canvas,url:canvas.toDataURL('image/png')};
  }
- function preview(asset,ink){
+ function preview(asset,ink,hex){
   const entries=cache.get(asset)||{};cache.set(asset,entries);
-  if(!entries[ink]){
+  const key=ink+(hex||'');if(!entries[key]){
    const img=asset.img,scale=Math.min(2048/Math.max(img.naturalWidth,img.naturalHeight),asset.vector?6:1);
-   entries[ink]=tint(img,Math.max(1,Math.round(img.naturalWidth*scale)),Math.max(1,Math.round(img.naturalHeight*scale)),ink);
+   entries[key]=tint(img,Math.max(1,Math.round(img.naturalWidth*scale)),Math.max(1,Math.round(img.naturalHeight*scale)),ink,hex);
   }
-  return entries[ink];
+  return entries[key];
  }
- async function svg(asset,width,ink){
+ async function svg(asset,width,ink,hex){
   let img=asset.img;
   if(asset.native){img=new Image();img.src=await CartonPDF.svgBitmap(asset,width);await img.decode();}
   const scale=Math.min(asset.native?1:width*600/25.4/img.naturalWidth,8192/Math.max(img.naturalWidth,img.naturalHeight),Math.sqrt(16000000/(img.naturalWidth*img.naturalHeight)));
-  return tint(img,Math.max(1,Math.round(img.naturalWidth*scale)),Math.max(1,Math.round(img.naturalHeight*scale)),ink).url;
+  return tint(img,Math.max(1,Math.round(img.naturalWidth*scale)),Math.max(1,Math.round(img.naturalHeight*scale)),ink,hex).url;
  }
  async function source(asset,w,h){
   if(asset.native)return asset.native;
