@@ -1,3 +1,7 @@
+# Carton Studio V2.3.8 update
+
+See [CARTON_V2.3.8_CHANGELOG.md](CARTON_V2.3.8_CHANGELOG.md) for Typography, single-row toolbar, header ink controls, and test results. Other modules are unchanged.
+
 ## V2.3.4 — Carton Compact Workspace & Rendering Hotfix
 
 See `CARTON_V2.3.4_CHANGELOG.md` for changes and tests. Other modules are unchanged.

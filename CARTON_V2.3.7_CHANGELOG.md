@@ -1,0 +1,13 @@
+# SC Barcodezy Official V2.3.7 — Advanced Artwork Tools
+
+Baseline: V2.3.6 approved three-column Carton Design Workbench. No other module or production engine changes.
+
+- Delete / Backspace removes selected artwork (locked automatic SIZE excluded). Shift+click toggles selection; Ctrl/Cmd+A selects visible artwork, Esc deselects, arrows move 1 mm (Shift+arrow 10 mm). Existing Copy/Paste now works with a selection of multiple objects. Text fields and modal dialogs retain their normal keyboard behavior. Multi-object dragging preserves relative positions within each original panel. Single-object resize handles remain unchanged.
+- Toolbar Align: left/center/right/top/middle/bottom; equal horizontal/vertical gaps for 3+ objects. Align relative to selection, last selected key object, original panel or safe area. Rejects operations outside original panels. No automatic group resize; single object properties remain available when one object is selected.
+- View: Safe Area (default 10 mm, adjustable; clamped on tiny panels), Dimensions toggle, existing Grid toggle. Guides and labels only appear in editor. Mandatory printed SIZE stays unchanged. Safe area violations warn in workspace, not a hard print block. Verify supplier-specific margins.
+- Product Trace Studio: upload or drop PNG/JPG/WebP, background flood-fill, contour extraction, optional Sobel interior edges, polyline simplification, outline/standard/detailed levels, threshold and stroke weight controls. Local browser processing, source preview, transparent SVG artwork, directly add to library and panel. Initial longest side approx. 100 mm, adjustable; stroke scales with artwork. Source downsampled to maximum 640 px for responsiveness. Not semantic AI; best for plain/transparent backgrounds. Complex reflections or background may require manual correction externally. No external APIs. Existing production PDF engine retains supported vector paths and color modes.
+
+## Verification
+- Node syntax checks for carton.js and carton-trace.js.
+- Chromium with HTML/scripts loaded directly (environment blocks URL navigation): Shift selection, align top and horizontal distribution, copy/paste, Delete, Undo/Redo, guide and label toggle, simulated pen image upload and trace, vector K-only PDF generation, viewport widths 1440/1184/768/390 without page overflow or runtime errors.
+- PDF page dimensions 1435 × 550 mm, no image XObjects in test output. PDF library loaded directly for test. No physical Mac/Windows, deployed hosting, real product photo benchmark, production RIP or printing tests. CMYK/Spot logic unchanged, not re-tested in this round.
