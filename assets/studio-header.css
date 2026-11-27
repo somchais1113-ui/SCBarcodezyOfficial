@@ -1,0 +1,15 @@
+.app-header{box-sizing:border-box;min-height:60px;background:white;color:#172d47;border-bottom:1px solid #d6e1ed;padding:7px clamp(12px,2.3vw,36px);gap:18px}
+.app-header .brand-link{display:flex;align-items:center;flex:none}
+.app-header .brand-link img{width:128px;height:auto;display:block}
+.app-header strong{display:block;color:#172d47;border-left:1px solid #cfdae8;padding-left:18px;font-size:15px;font-weight:700;white-space:nowrap}
+.app-header small{color:#64758a}
+.app-header .header-ink .ink-chip,.app-header .header-ink summary{color:#294362}
+.app-header .header-ink .ink-dot{border-color:#22334435}
+.app-header .header-ink .ink-chip:hover{background:#f0f4f9}
+.app-header .header-ink .ink-chip.is-active{color:#143d79;background:#e7f0fc;border-color:#93add1}
+.sticker-studio .app-header #openExport{margin-left:auto}
+@media(max-width:700px){
+ .app-header{min-height:48px;gap:8px;padding:6px 10px;flex-wrap:wrap}
+ .app-header .brand-link img{width:94px}
+ .app-header strong{font-size:13px;padding-left:9px}
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "id": "candidate-1",
+    "name": "Seam 1",
+    "kind": "seam",
+    "points": [
+      [
+        0.864939,
+        0.135387
+      ],
+      [
+        0.70609,
+        0.10641
+      ]
+    ],
+    "anchor": [
+      0.785514,
+      0.120898
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-2",
+    "name": "Seam 2",
+    "kind": "seam",
+    "points": [
+      [
+        0.676705,
+        0.382183
+      ],
+      [
+        0.517857,
+        0.353205
+      ]
+    ],
+    "anchor": [
+      0.597281,
+      0.367694
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-3",
+    "name": "Seam 3",
+    "kind": "seam",
+    "points": [
+      [
+        0.656868,
+        0.408622
+      ],
+      [
+        0.498019,
+        0.379645
+      ]
+    ],
+    "anchor": [
+      0.577443,
+      0.394133
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-4",
+    "name": "Seam 4",
+    "kind": "seam",
+    "points": [
+      [
+        0.411546,
+        0.719265
+      ],
+      [
+        0.276929,
+        0.694708
+      ]
+    ],
+    "anchor": [
+      0.344238,
+      0.706987
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-5",
+    "name": "Seam 5",
+    "kind": "seam",
+    "points": [
+      [
+        0.291895,
+        0.858339
+      ],
+      [
+        0.184201,
+        0.838693
+      ]
+    ],
+    "anchor": [
+      0.238048,
+      0.848516
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-6",
+    "name": "Seam 6",
+    "kind": "seam",
+    "points": [
+      [
+        0.252852,
+        0.877738
+      ],
+      [
+        0.185543,
+        0.86546
+      ]
+    ],
+    "anchor": [
+      0.219198,
+      0.871599
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  },
+  {
+    "id": "candidate-7",
+    "name": "Seam 7",
+    "kind": "seam",
+    "points": [
+      [
+        0.22628,
+        0.929471
+      ],
+      [
+        0.145509,
+        0.914737
+      ]
+    ],
+    "anchor": [
+      0.185894,
+      0.922104
+    ],
+    "label": false,
+    "smooth": false,
+    "reviewed": false
+  }
+]

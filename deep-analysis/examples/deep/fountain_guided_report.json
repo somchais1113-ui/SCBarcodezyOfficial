@@ -1,0 +1,434 @@
+{
+  "source_sha256": "b4b4526c8c08473f0e219d55cab371cc6f345669cc9aed5cee9ed35c3c69d853",
+  "image_size": [
+    657,
+    740
+  ],
+  "axis_size": [
+    685,
+    67
+  ],
+  "source_to_axis": [
+    [
+      -0.362884437001901,
+      0.9318341512210278,
+      102.24142011766838
+    ],
+    [
+      -0.9318341512210278,
+      -0.362884437001901,
+      467.8564371283651
+    ]
+  ],
+  "seam_candidates": [
+    {
+      "x": 19,
+      "score": 42.05,
+      "support": 0.613,
+      "status": "unreviewed"
+    },
+    {
+      "x": 225,
+      "score": 121.54,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 252,
+      "score": 123.02,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 467,
+      "score": 114.31,
+      "support": 0.935,
+      "status": "unreviewed"
+    },
+    {
+      "x": 566,
+      "score": 45.1,
+      "support": 0.889,
+      "status": "unreviewed"
+    },
+    {
+      "x": 586,
+      "score": 198.61,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 645,
+      "score": 20.36,
+      "support": 0.5,
+      "status": "unreviewed"
+    },
+    {
+      "x": 662,
+      "score": 31.58,
+      "support": 1.0,
+      "status": "unreviewed"
+    }
+  ],
+  "ocr": {
+    "status": "completed",
+    "items": [],
+    "errors": [],
+    "coordinate_system": "axis pixels",
+    "note": "Text candidates only; not proof of part geometry. No text paths are traced."
+  },
+  "elapsed_s": 0.322,
+  "status": "needs_review",
+  "semantic_provider": "none (local geometric candidates only)",
+  "mode": "guided",
+  "parts": [
+    {
+      "id": "part-1",
+      "name": "Cap top",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 1203,
+      "anchor_source_px": [
+        434.5403077255597,
+        81.33578879107303
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9851851851851852,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.4987531172069825,
+          "method": "bounded-cubic",
+          "vertices": 48,
+          "legacy_vertices": 51,
+          "source_vertices": 84,
+          "legacy_metrics": {
+            "mask_iou": 0.9917287014061208,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.1662510390689942
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-2",
+      "name": "Cap body",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 6636,
+      "anchor_source_px": [
+        393.9011246748636,
+        186.2990970073125
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9890783961699581,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.3465943339361061,
+          "method": "bounded-cubic",
+          "vertices": 135,
+          "legacy_vertices": 150,
+          "source_vertices": 175,
+          "legacy_metrics": {
+            "mask_iou": 0.9983431239644525,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.0753465943339361
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-3",
+      "name": "Center ring",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 1322,
+      "anchor_source_px": [
+        356.30713689550663,
+        283.3343097429513
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9932228915662651,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.22692889561270801,
+          "method": "bounded-cubic",
+          "vertices": 20,
+          "legacy_vertices": 20,
+          "source_vertices": 32,
+          "legacy_metrics": {
+            "mask_iou": 0.9969765684051398,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.15128593040847202
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-4",
+      "name": "Barrel",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 11175,
+      "anchor_source_px": [
+        312.48966843276986,
+        395.61683983610857
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9933321479374111,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.6353467561521253,
+          "method": "bounded-cubic",
+          "vertices": 266,
+          "legacy_vertices": 278,
+          "source_vertices": 362,
+          "legacy_metrics": {
+            "mask_iou": 0.9971433672558472,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.19686800894854586
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-5",
+      "name": "Grip upper",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 3002,
+      "anchor_source_px": [
+        262.685224400871,
+        523.2708129867794
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9953565505804312,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.39973351099267157,
+          "method": "bounded-cubic",
+          "vertices": 67,
+          "legacy_vertices": 69,
+          "source_vertices": 88,
+          "legacy_metrics": {
+            "mask_iou": 0.998004655803126,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.13324450366422386
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-6",
+      "name": "Grip step",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 1216,
+      "anchor_source_px": [
+        247.64746917904182,
+        562.2905298539778
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9926410466067048,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.41118421052631576,
+          "method": "bounded-cubic",
+          "vertices": 23,
+          "legacy_vertices": 26,
+          "source_vertices": 35,
+          "legacy_metrics": {
+            "mask_iou": 0.9975349219391948,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.08223684210526315
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-7",
+      "name": "Grip lower",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 806,
+      "anchor_source_px": [
+        239.66635752575056,
+        582.9083846348666
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9826302729528535,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": -1.7369727047146404,
+          "method": "bounded-cubic",
+          "vertices": 4,
+          "legacy_vertices": 8,
+          "source_vertices": 11,
+          "legacy_metrics": {
+            "mask_iou": 0.9975247524752475,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.24813895781637718
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-8",
+      "name": "Nib collar",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 697,
+      "anchor_source_px": [
+        233.581366369396,
+        598.6212669148799
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9801418439716312,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.2869440459110474,
+          "method": "bounded-cubic",
+          "vertices": 6,
+          "legacy_vertices": 15,
+          "source_vertices": 22,
+          "legacy_metrics": {
+            "mask_iou": 0.9928571428571429,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.1434720229555237
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-9",
+      "name": "Nib",
+      "source": "manual_axis_cut",
+      "status": "needs_review",
+      "pixel_area": 2477,
+      "anchor_source_px": [
+        217.09093096362562,
+        641.8899718707066
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.982414068745004,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.24222850222042794,
+          "method": "polygon",
+          "vertices": 57,
+          "legacy_vertices": 74,
+          "source_vertices": 141,
+          "legacy_metrics": {
+            "mask_iou": 0.9895666131621188,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.16148566814695195
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-10",
+      "name": "Pocket clip",
+      "source": "manual_polygon",
+      "status": "needs_review",
+      "pixel_area": 3996,
+      "anchor_source_px": [
+        400.03356792327816,
+        172.76395006761163
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9905519641969169,
+          "max_boundary_error_px": 1.4142135381698608,
+          "area_change_pct": 0.35035035035035034,
+          "method": "bounded-cubic",
+          "vertices": 7,
+          "legacy_vertices": 8,
+          "source_vertices": 27,
+          "legacy_metrics": {
+            "mask_iou": 0.9994994994994995,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.050050050050050046
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    }
+  ],
+  "outer_geometry": {
+    "mask_iou": 0.9864184343048985,
+    "max_boundary_error_px": 1.4142135381698608,
+    "area_change_pct": 0.04610419548178884,
+    "method": "bounded-cubic",
+    "vertices": 39,
+    "legacy_vertices": 176,
+    "source_vertices": 925,
+    "legacy_metrics": {
+      "mask_iou": 0.9938097572934543,
+      "max_boundary_error_px": 1.0,
+      "area_change_pct": -0.02458890425695405
+    },
+    "geometry_tolerance_px": 1.5,
+    "min_iou": 0.98,
+    "within_guard": true,
+    "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+  },
+  "partition_coverage": 1.0,
+  "partition_overlap_pixels": 0,
+  "part_vector_guard_pass_count": 10,
+  "reconstruction_s": 0.144,
+  "warnings": [
+    "Mask coverage is not semantic accuracy. All parts require review.",
+    "Only visible 2D regions; hidden geometry and physical dimensions are unknown.",
+    "Cuts are straight in analysis frame; curved or oblique joints need manual refinement."
+  ],
+  "export_status": "draft_needs_review"
+}

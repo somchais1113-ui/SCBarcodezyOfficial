@@ -377,6 +377,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('workspace').clas
 
 buildInkCompact();moveClipboardHint();CartonText.init();
 initAdvanced();CartonTrace.init({registerAsset,place,currentTarget:()=>g?{i:face,part:'wall',b:partBox(face,'wall')}:null});
+window.SCBarcodezyDeepAssetAPI={registerAsset,place,currentTarget:()=>g?{i:face,part:'wall',b:partBox(face,'wall')}:null};
 $('toggleTools').onclick=()=>{toolBody.hidden=!toolBody.hidden;$('toggleTools').setAttribute('aria-expanded',String(!toolBody.hidden));$('toggleTools').textContent=toolBody.hidden?'แสดงเครื่องมือ':'ซ่อนเครื่องมือ';};
 const exportDialog=$('exportDialog');
 $('openExport').onclick=()=>{updatePreflight();$('exportStatus').textContent='';exportDialog.showModal();};

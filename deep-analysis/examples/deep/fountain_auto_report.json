@@ -1,0 +1,402 @@
+{
+  "source_sha256": "b4b4526c8c08473f0e219d55cab371cc6f345669cc9aed5cee9ed35c3c69d853",
+  "image_size": [
+    657,
+    740
+  ],
+  "axis_size": [
+    685,
+    67
+  ],
+  "source_to_axis": [
+    [
+      -0.362884437001901,
+      0.9318341512210278,
+      102.24142011766838
+    ],
+    [
+      -0.9318341512210278,
+      -0.362884437001901,
+      467.8564371283651
+    ]
+  ],
+  "seam_candidates": [
+    {
+      "x": 19,
+      "score": 42.05,
+      "support": 0.613,
+      "status": "unreviewed"
+    },
+    {
+      "x": 225,
+      "score": 121.54,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 252,
+      "score": 123.02,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 467,
+      "score": 114.31,
+      "support": 0.935,
+      "status": "unreviewed"
+    },
+    {
+      "x": 566,
+      "score": 45.1,
+      "support": 0.889,
+      "status": "unreviewed"
+    },
+    {
+      "x": 586,
+      "score": 198.61,
+      "support": 1.0,
+      "status": "unreviewed"
+    },
+    {
+      "x": 645,
+      "score": 20.36,
+      "support": 0.5,
+      "status": "unreviewed"
+    },
+    {
+      "x": 662,
+      "score": 31.58,
+      "support": 1.0,
+      "status": "unreviewed"
+    }
+  ],
+  "ocr": {
+    "status": "completed",
+    "items": [],
+    "errors": [],
+    "coordinate_system": "axis pixels",
+    "note": "Text candidates only; not proof of part geometry. No text paths are traced."
+  },
+  "elapsed_s": 0.359,
+  "status": "needs_review",
+  "semantic_provider": "none (local geometric candidates only)",
+  "mode": "automatic_candidates",
+  "parts": [
+    {
+      "id": "part-1",
+      "name": "Unclassified region 1",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 559,
+      "anchor_source_px": [
+        437.5514877611937,
+        74.34587411003646
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9875666074600356,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.17889087656529518,
+          "method": "polygon",
+          "vertices": 24,
+          "legacy_vertices": 28,
+          "source_vertices": 40,
+          "legacy_metrics": {
+            "mask_iou": 0.9911032028469751,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.17889087656529518
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-2",
+      "name": "Unclassified region 2",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 11276,
+      "anchor_source_px": [
+        398.24607212656576,
+        175.85430671327177
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.993997175141243,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.31926214969847466,
+          "method": "bounded-cubic",
+          "vertices": 145,
+          "legacy_vertices": 158,
+          "source_vertices": 185,
+          "legacy_metrics": {
+            "mask_iou": 0.9990248226950355,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.02660517914153955
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-3",
+      "name": "Unclassified region 3",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 1425,
+      "anchor_source_px": [
+        355.97028493684456,
+        284.2534930859898
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9944055944055944,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.14035087719298245,
+          "method": "bounded-cubic",
+          "vertices": 21,
+          "legacy_vertices": 21,
+          "source_vertices": 35,
+          "legacy_metrics": {
+            "mask_iou": 0.9964961457603364,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.07017543859649122
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-4",
+      "name": "Unclassified region 4",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 11124,
+      "anchor_source_px": [
+        311.9456726397442,
+        397.012418702195
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9800266311584553,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.5124056094929882,
+          "method": "bounded-cubic",
+          "vertices": 4,
+          "legacy_vertices": 276,
+          "source_vertices": 360,
+          "legacy_metrics": {
+            "mask_iou": 0.9972199802708277,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.2067601582164689
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-5",
+      "name": "Unclassified region 5",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 4886,
+      "anchor_source_px": [
+        255.48514349752702,
+        541.9180380303237
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9957177814029364,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.30699959066721244,
+          "method": "bounded-cubic",
+          "vertices": 93,
+          "legacy_vertices": 97,
+          "source_vertices": 124,
+          "legacy_metrics": {
+            "mask_iou": 0.9983643426702106,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.04093327875562833
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-6",
+      "name": "Unclassified region 6",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 844,
+      "anchor_source_px": [
+        233.6433926805101,
+        598.3971786956765
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9871194379391101,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 1.066350710900474,
+          "method": "bounded-cubic",
+          "vertices": 13,
+          "legacy_vertices": 17,
+          "source_vertices": 28,
+          "legacy_metrics": {
+            "mask_iou": 0.9940968122786304,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.11848341232227488
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-7",
+      "name": "Unclassified region 7",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 1995,
+      "anchor_source_px": [
+        219.23757188855043,
+        636.0772321583571
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.983176645225136,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.9022556390977444,
+          "method": "bounded-cubic",
+          "vertices": 40,
+          "legacy_vertices": 50,
+          "source_vertices": 85,
+          "legacy_metrics": {
+            "mask_iou": 0.9925112331502746,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 0.05012531328320802
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-8",
+      "name": "Unclassified region 8",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 310,
+      "anchor_source_px": [
+        206.67065115577162,
+        670.406589902775
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9808306709265175,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 0.0,
+          "method": "polygon",
+          "vertices": 8,
+          "legacy_vertices": 9,
+          "source_vertices": 29,
+          "legacy_metrics": {
+            "mask_iou": 0.9871382636655949,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": -0.6451612903225806
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    },
+    {
+      "id": "part-9",
+      "name": "Unclassified region 9",
+      "source": "unreviewed_axis_candidate",
+      "status": "needs_review",
+      "pixel_area": 111,
+      "anchor_source_px": [
+        200.52583423949687,
+        685.8450627451246
+      ],
+      "geometry_contours": [
+        {
+          "mask_iou": 0.9823008849557522,
+          "max_boundary_error_px": 1.0,
+          "area_change_pct": 1.8018018018018018,
+          "method": "bounded-cubic",
+          "vertices": 23,
+          "legacy_vertices": 12,
+          "source_vertices": 27,
+          "legacy_metrics": {
+            "mask_iou": 0.9482758620689655,
+            "max_boundary_error_px": 1.0,
+            "area_change_pct": 3.6036036036036037
+          },
+          "geometry_tolerance_px": 1.5,
+          "min_iou": 0.98,
+          "within_guard": true,
+          "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+        }
+      ],
+      "path_exists": true
+    }
+  ],
+  "outer_geometry": {
+    "mask_iou": 0.9864184343048985,
+    "max_boundary_error_px": 1.4142135381698608,
+    "area_change_pct": 0.04610419548178884,
+    "method": "bounded-cubic",
+    "vertices": 39,
+    "legacy_vertices": 176,
+    "source_vertices": 925,
+    "legacy_metrics": {
+      "mask_iou": 0.9938097572934543,
+      "max_boundary_error_px": 1.0,
+      "area_change_pct": -0.02458890425695405
+    },
+    "geometry_tolerance_px": 1.5,
+    "min_iou": 0.98,
+    "within_guard": true,
+    "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+  },
+  "partition_coverage": 1.0,
+  "partition_overlap_pixels": 0,
+  "part_vector_guard_pass_count": 9,
+  "reconstruction_s": 0.096,
+  "warnings": [
+    "Mask coverage is not semantic accuracy. All parts require review.",
+    "Only visible 2D regions; hidden geometry and physical dimensions are unknown.",
+    "Cuts are straight in analysis frame; curved or oblique joints need manual refinement."
+  ],
+  "export_status": "draft_needs_review"
+}

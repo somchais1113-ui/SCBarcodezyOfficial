@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id),K=72/25.4,NS='http://www.w3.org/2000/svg',sheetMM=1000;
 let source=null,master=null,job=null,pageIndex=0,revision=0,readingCut=null,exporting=false,frame;
-const n=id=>id==='qty'?Number($(id).value.replace(/,/g,'')):$(id).valueAsNumber,fmt=x=>Number(x.toFixed(3)),say=text=>$('status').textContent=text;
+const n=id=>id==='qty'?Number($(id).value.replace(/,/g,'')):$(id).valueAsNumber,fmt=x=>Number(x.toFixed(3)),say=text=>{$('status').textContent=text;$('exportFeedback').textContent=text;};
 function field(group,id,label,value,min,max,step='any'){
  const l=document.createElement('label'),e=document.createElement('input');l.textContent=label;e.type='number';Object.assign(e,{id,value,min,max,step,required:true});l.append(e);$(group).append(l);
 }
@@ -30,7 +30,7 @@ function contours(model,id){
     const a=op==='v'?last:pair(0),b=op==='v'?pair(0):pair(2),end=op==='c'?pair(4):pair(2);lines.push(['C',...a,...b,...end]);last=end;
    }
    if(op==='re'){const [x,y,w,h]=v;if(lines.length&&!closed)lines.push(['OPEN']);lines.push(['M',...p(x,y)],['L',...p(x+w,y)],['L',...p(x+w,y+h)],['L',...p(x,y+h)],['Z']);closed=true;}
-   if(op==='h'||['s','b','b*'].includes(op)){lines.push(['Z']);closed=true;}
+   if(!closed&&(op==='h'||['s','b','b*'].includes(op))){lines.push(['Z']);closed=true;}
    if(c.entry&&(id===null||c.entry.tags.includes(id))){
     if(!['S','s'].includes(op)||!closed||!lines.length||lines.some(l=>l[0]==='OPEN'))throw Error('เลเยอร์ไดคัทต้องมีเฉพาะเส้น Stroke ที่ปิดครบทุกวง');
     const signature=JSON.stringify(lines);if(seen.has(signature))throw Error('พบเส้นตัดซ้ำในเลเยอร์ที่เลือก');seen.add(signature);paths.push(...lines);
@@ -78,15 +78,15 @@ async function renderPdf(bytes,maxSide){
  const c=document.createElement('canvas');c.width=Math.max(1,Math.ceil(viewport.width));c.height=Math.max(1,Math.ceil(viewport.height));
  await pg.render({canvas:c,canvasContext:c.getContext('2d',{alpha:true}),viewport,background:'rgba(0,0,0,0)'}).promise;return c;}finally{await task.destroy();}
 }
-function invalidate(){$('cutFile').disabled=true;job=null;master=null;update();}
+function invalidate(){$('cutInfo').textContent='';$('cutFile').disabled=true;job=null;master=null;update();}
 async function preparePDF(token,changePage){
  if(changePage){
   const {m,count}=await pdfPage(source.bytes,Number($('page').value||0));if(token!==revision)return;
   addCutSpotLayers(m);source.model=m;const selected=$('page').value||'0';$('page').replaceChildren(...Array.from({length:count},(_,i)=>new Option('หน้า '+(i+1),String(i))));$('page').value=selected;
   $('cutLayer').replaceChildren(new Option('ไม่มี · ไฟล์กราฟิกอย่างเดียว',''),...m.layers.map(l=>new Option(l.label,l.id)));
   $('artLayer').replaceChildren(new Option('ทุกเลเยอร์ ยกเว้นเส้นตัดที่เลือก',''),...m.layers.map(l=>new Option(l.label,l.id)));
-  $('artLayer').value=m.layers.find(l=>/^art[ _-]*work$/i.test(l.label))?.id||'';
-  $('cutLayer').value=m.layers.find(l=>/cutcontour|die[\s_-]*cut|ไดคัท/i.test(l.label))?.id||m.layers.find(l=>l.id.startsWith('spot'))?.id||'';
+  $('artLayer').value=m.layers.find(l=>/^(art[ _-]*work|graphic)$/i.test(l.label))?.id||'';
+  $('cutLayer').value=m.layers.find(l=>/cutcontour|die?[\s_-]*cut|ไดคัท/i.test(l.label))?.id||m.layers.find(l=>l.id.startsWith('spot'))?.id||'';
  }
  const m=source.model,id=$('cutLayer').value,cut=id?contours(m,id):null;
  const printID=$('artLayer').value;
@@ -123,27 +123,69 @@ async function openFile(file,bytes=null){
   if(token===revision)say('');
  }catch(e){failure(e,token);}
 }
-$('cutFile').onchange=async e=>{
- const file=e.target.files[0],owner=master;if(!file||!owner)return;e.target.value='';
+function activeCut(){
+ const shape=$('shape').value;
+ return shape==='trace'?master?.trace:shape==='pdf'?master?.cut:null;
+}
+function readSettings(){return {w:$('w').value,h:$('h').value,bleed:$('bleed').value};}
+function applySettings(values){for(const key of ['w','h','bleed'])$(key).value=values[key];}
+function selectShape(){
+ const owner=master;if(!owner)return;
+ if($('shape').value!=='trace'){
+  if(owner.beforeTrace){applySettings(owner.beforeTrace);owner.beforeTrace=null;}
+  update();return;
+ }
+ if(owner.beforeTrace)return;
+ owner.beforeTrace=readSettings();owner.traceError='กำลังหาแนวตัดตามขอบภาพ…';$('bleed').value=0;
+ update();
+ requestAnimationFrame(()=>setTimeout(()=>{
+  if(owner!==master||$('shape').value!=='trace')return;
+  try{
+   owner.trace=owner.trace||StickerOutline.trace(owner.img);
+   const width=Number(owner.beforeTrace.w)||50;
+   $('w').value=width;$('h').value=fmt(width*owner.trace.height/owner.trace.width);
+   owner.traceError='';$('detailView').open=true;
+  }catch(err){owner.traceError=err.message;}
+  update();
+ },0));
+}
+async function loadCut(file){
+ const owner=master;if(!file||!owner)return;
  const token=++revision;readingCut=token;$('cutInfo').textContent='กำลังอ่านเส้นไดคัท…';update();
  try{
+  if(!/\.svg$/i.test(file.name))throw Error('ไฟล์เส้นไดคัทแยกต้องเป็น SVG เส้นปิด');
   const svg=await StickerSVG.read(file,true);if(token!==revision||owner!==master)return;
   const sx=owner.width/svg.width,sy=owner.height/svg.height;
   if(Math.abs(sx/sy-1)>.002)throw Error('สัดส่วนอาร์ตบอร์ดเส้นตัดต่างจากกราฟิก กรุณาส่งออกด้วยอาร์ตบอร์ดเดียวกัน');
+  if(!owner.previousCut)owner.previousCut={cut:owner.cut,shape:$('shape').value,locked:$('shape').disabled,settings:readSettings()};
   const c=svg.cut;owner.cut={x:c.x*sx,y:c.y*sy,width:c.width*sx,height:c.height*sy,paths:c.paths.map(([op,...v])=>[op,...v.map((a,i)=>a*(i%2?sy:sx))])};
-  $('w').value=fmt(c.width);$('h').value=fmt(c.height);$('shape').options[3].disabled=false;$('shape').value='pdf';$('shape').disabled=true;$('cutInfo').textContent=file.name+' · '+svg.reason;
- }catch(err){if(token===revision)$('cutInfo').textContent=err.message+' · ยังใช้แนวตัดเดิม';}
+  $('w').value=fmt(c.width);$('h').value=fmt(c.height);$('shape').options[3].disabled=false;$('shape').value='pdf';$('shape').disabled=true;
+  owner.cutName=file.name;$('cutInfo').textContent=file.name+' · '+svg.reason;
+ }catch(err){if(token===revision)$('cutInfo').textContent=err.message+' · ยังใช้แนวตัดเดิม'+(owner.cutName?' ('+owner.cutName+')':'');}
  finally{if(readingCut===token){readingCut=null;update();}}
+}
+$('removeCut').onclick=()=>{
+ const saved=master?.previousCut;if(!saved)return;
+ ++revision;master.cut=saved.cut;master.previousCut=null;master.cutName='';
+ $('shape').options[3].disabled=!saved.cut;$('shape').value=saved.shape;$('shape').disabled=saved.locked;
+ applySettings(saved.settings);$('cutInfo').textContent='';
+ if(saved.shape==='trace'&&!master.trace&&master.traceError==='กำลังหาแนวตัดตามขอบภาพ…'){const original=master.beforeTrace;master.beforeTrace=null;if(original)applySettings(original);selectShape();}else update();
 };
 for(const id of ['page','cutLayer','artLayer'])$(id).onchange=async()=>{const token=++revision;invalidate();try{await preparePDF(token,id==='page');if(token===revision)say('');}catch(e){failure(e,token);}};
-$('file').onchange=e=>{if(e.target.files[0])openFile(e.target.files[0]);e.target.value='';};
-$('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('over');};$('drop').ondragleave=()=>$('drop').classList.remove('over');
-$('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('over');if(e.dataTransfer.files[0])openFile(e.dataTransfer.files[0]);};
+function bindUpload(zone,input,load){
+ const target=$(zone),picker=$(input);
+ picker.onchange=()=>{const file=picker.files[0];picker.value='';if(file)load(file);};
+ target.ondragover=e=>{e.preventDefault();if(!picker.disabled)target.classList.add('over');};
+ target.ondragleave=()=>target.classList.remove('over');
+ target.ondrop=e=>{e.preventDefault();target.classList.remove('over');if(!picker.disabled&&e.dataTransfer.files[0])load(e.dataTransfer.files[0]);};
+}
+bindUpload('drop','file',openFile);bindUpload('cutDrop','cutFile',loadCut);
 function geometry(){
- const w=n('w'),h=n('h'),bleed=n('bleed'),cut=master.cut;
+ const w=n('w'),h=n('h'),bleed=n('bleed'),cut=activeCut();
+ if($('shape').value==='trace'&&(master.traceError||!cut))throw Error(master.traceError||'กำลังหาแนวตัด…');
  if(cut){
   const sx=w/cut.width,sy=h/cut.height;
-  if(Math.min(cut.x*sx,cut.y*sy,(master.width-cut.x-cut.width)*sx,(master.height-cut.y-cut.height)*sy)+.015<bleed)throw Error('ขอบหน้าต้นฉบับ PDF มีพื้นที่ตัดตกน้อยกว่าค่าที่กำหนด');
+  if(Math.min(cut.x*sx,cut.y*sy,(master.width-cut.x-cut.width)*sx,(master.height-cut.y-cut.height)*sy)+.015<bleed)throw Error('ขอบต้นฉบับมีพื้นที่ตัดตกน้อยกว่าค่าที่กำหนด');
   return {path:cut.paths.map(([op,...v])=>[op,...v.map((a,i)=>i%2?(a-cut.y)*sy:(a-cut.x)*sx)]),art:[-cut.x*sx,-cut.y*sy,master.width*sx,master.height*sy]};
  }
  const ellipse=$('shape').value==='ellipse',round=$('shape').value==='round',r=round?n('radius'):0;
@@ -168,11 +210,17 @@ function layout(){
 }
 const count=(j,i)=>Math.min(j.cap,j.qty-i*j.cap);
 function update(){
+ const tracing=$('shape').value==='trace',cut=master?.trace;
+ $('shape').querySelector('[value="trace"]').disabled=!master?.bytes;
+ $('bleed').disabled=tracing;
+ $('traceInfo').textContent=tracing&&cut&&!master.traceError?
+   (cut.alpha?'ขอบจากพื้นใส':'ขอบจากพื้นสีเรียบ')+' · '+cut.rings+' วงตัดภายนอก'+(cut.ignored?' · ข้ามจุดเล็ก '+cut.ignored+' จุด':'')+' · ตัดบนขอบภาพ ตัดตก 0 มม. ตรวจแนวสีชมพูในภาพขยาย':'';
+ $('removeCut').hidden=!master?.previousCut;$('removeCut').disabled=readingCut===revision;
  $('radius').disabled=$('shape').value!=='round';
  try{job=layout();$('warning').textContent='';}catch(e){job=null;$('warning').textContent=e.message;}
- $('cutFile').disabled=!master||!!master.embeddedCut;const j=job;pageIndex=j?Math.min(pageIndex,j.pages-1):0;
+ $('cutFile').disabled=!master;const j=job;pageIndex=j?Math.min(pageIndex,j.pages-1):0;
  $('prev').disabled=!j||!pageIndex;$('next').disabled=!j||pageIndex>=j.pages-1;
- for(const id of ['pdf','zip','svg','jpg'])$(id).disabled=!j||exporting||readingCut===revision;
+ for(const id of ['pdf','zip','ai','nativeAi','svg','jpg'])$(id).disabled=!j||exporting||readingCut===revision;
  $('summary').textContent=j?j.cols+' คอลัมน์ × '+j.rows+' แถว · '+j.cap.toLocaleString()+' ดวง/แผ่น · '+j.qty.toLocaleString()+' ดวง รวม '+j.pages.toLocaleString()+' แผ่น':'';
  $('pageInfo').value=j?'แผ่น '+(pageIndex+1)+' / '+j.pages+' · '+count(j,pageIndex)+' ดวง':'';
  const ppi=j&&(master.art?(master.ppi??NaN)*master.width/j.art[2]:master.img.naturalWidth*25.4/j.art[2]);
@@ -197,7 +245,7 @@ function paint(canvas,j,page,cut){
  const total=count(j,page),full=Math.floor(total/j.cols),tail=total%j.cols;
  ctx.fillRect(0,0,j.cols*pw,full*ph);if(tail)ctx.fillRect(0,full*ph,tail*pw,ph);ctx.restore();
 }
-for(const e of document.querySelectorAll('input[type=number],#qty,#spot,#rotate,#shape,#showCut'))e.addEventListener('input',()=>{if(master?.cut&&(e.id==='w'||e.id==='h')&&e.validity.valid){const ratio=master.cut.width/master.cut.height;if(e.id==='w')$('h').value=fmt(n('w')/ratio);else $('w').value=fmt(n('h')*ratio);}update();});
+for(const e of document.querySelectorAll('input[type=number],#qty,#spot,#rotate,#shape,#showCut'))e.addEventListener('input',()=>{if(e.id==='shape'){selectShape();return;}const cut=activeCut();if(cut&&(e.id==='w'||e.id==='h')&&e.validity.valid){const ratio=cut.width/cut.height;if(e.id==='w')$('h').value=fmt(n('w')/ratio);else $('w').value=fmt(n('h')*ratio);}update();});
 $('prev').onclick=()=>{pageIndex--;update();};$('next').onclick=()=>{pageIndex++;update();};
 function rowsOn(j,total){
  const rows=[];for(let start=0;start<total;start+=j.cols)rows.push(Math.min(j.cols,total-start));return rows;
@@ -342,12 +390,38 @@ async function exportJob(type){
  exporting=true;document.querySelector('main').inert=true;say('กำลังเตรียมไฟล์…');
  try{await new Promise(r=>setTimeout(r,30));let blob;
   const basename=$('filename').textContent.replace(/\.[^.]+$/,'').replace(/[\\/:*?"<>|]/g,'_')||'Sticker';
-  if(type==='zip')blob=await splitJob(j,basename);else if(type==='pdf')blob=await production(j);else if(type==='svg')blob=await svgSheet(j,i);
-  else{const canvas=document.createElement('canvas');canvas.width=canvas.height=2000;paint(canvas,j,i,$('showCut').checked);blob=await imageBlob(canvas,'image/jpeg',.94);}
-  const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=basename+'_'+(type==='pdf'?'PrintCut':type==='zip'?'Print-and-Cut':'Sheet-'+(i+1))+'.'+type;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
-  say('สร้างไฟล์ '+type.toUpperCase()+' แล้ว · '+((performance.now()-begin)/1000).toFixed(1)+' วินาที');
+  let suffix='Sheet-'+(i+1), extension=type;
+  if(type==='pdf'||type==='ai'){
+    blob=await production(j);
+    suffix='PrintCut';
+    if(type==='ai')blob=blob.slice(0,blob.size,'application/octet-stream');
+  }else if(type==='nativeAi'){
+    blob=await StickerIllustrator.bundle(j,basename,production);
+    suffix='Illustrator-CS6';
+    extension='zip';
+  }else if(type==='zip'){
+    blob=await splitJob(j,basename);
+    suffix='Print-and-Cut';
+  }else if(type==='svg'){
+    blob=await svgSheet(j,i);
+  }else{
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=2000;paint(canvas,j,i,$('showCut').checked);blob=await imageBlob(canvas,'image/jpeg',.94);
+  }
+  const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=basename+'_'+suffix+'.'+extension;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+  say((type==='nativeAi'?'ดาวน์โหลดชุดสร้างไฟล์ Illustrator CS6 แล้ว':'สร้างไฟล์ '+extension.toUpperCase()+' แล้ว')+' · '+((performance.now()-begin)/1000).toFixed(1)+' วินาที');
  }catch(e){say('ส่งออกไม่สำเร็จ · '+e.message);}finally{exporting=false;document.querySelector('main').inert=false;update();}
 }
-for(const type of ['pdf','zip','svg','jpg'])$(type).onclick=()=>exportJob(type);
+for(const type of ['pdf','zip','ai','nativeAi','svg','jpg'])$(type).onclick=()=>exportJob(type);
 $('detailView').ontoggle=()=>{if($('detailView').open)drawUnit($('unit'),job);};
 openFile({name:'Sticker-Master.pdf'},Uint8Array.from(atob(stickerDemo),s=>s.charCodeAt(0)));
+
+const stickerExport=$('stickerExport');
+$('openExport').onclick=()=>{stickerExport.showModal();};
+$('closeExport').onclick=()=>stickerExport.close();
+$('toggleSource').onclick=()=>{
+ const panel=$('sourcePanel'),button=$('toggleSource');
+ panel.hidden=!panel.hidden;
+ document.querySelector('.sheet-layout').classList.toggle('source-hidden',panel.hidden);
+ button.setAttribute('aria-expanded',String(!panel.hidden));
+ button.textContent=panel.hidden?'แสดงเครื่องมือ':'ซ่อนเครื่องมือ';
+};

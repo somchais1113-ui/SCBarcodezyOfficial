@@ -27,7 +27,7 @@ const StickerSVG=(()=>{
  async function read(file,onlyCut=false){
   const root=parse(await file.text()),size=StudioSourceImport.geometry(root,50);
   if(onlyCut)return {...size,cut:await cutOnly(root,size)};
-  let cut=null;const group=[...root.querySelectorAll('g')].find(g=>/^die[ _-]*cut$|^cutcontour$/i.test(g.id));
+  let cut=null;const group=[...root.querySelectorAll('g')].find(g=>/^die?[ _-]*cut$|^cutcontour$/i.test(g.id));
   if(group){
    const knife=root.cloneNode(true);const keep=knife.querySelector('[id="'+CSS.escape(group.id)+'"]');
    for(let node=keep;node!==knife;node=node.parentElement){for(const other of [...node.parentElement.children])if(other!==node&&other.localName!=='defs')other.remove();}

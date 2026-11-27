@@ -1,0 +1,5 @@
+...........                                                              [100%]
+11 passed in 1.22s
+
+JS syntax: node --check passed for structured.html and index.html.
+Browser E2E / live cloud: not run.

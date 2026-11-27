@@ -1,3 +1,41 @@
 .layout{grid-template-columns:minmax(270px,350px) minmax(0,1fr)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.fields input,#spot{min-width:0}#spot{width:100%;padding:8px;border:1px solid #bacbdd;border-radius:7px}.paper{background:#dae4e8;padding:18px;text-align:center;border-radius:10px}#sheet{display:block;width:min(100%,63vh);height:auto;margin:auto;background:white;box-shadow:0 3px 16px #19313c29}.pager{margin:12px 0}#warning{color:#a03321}#summary{background:#edf5f2;padding:10px;color:#25493e}.upload.over{outline:2px solid #27765a}.exports button{margin:4px 0}.exports small{margin-top:8px}button:disabled{opacity:.5}#filename{overflow-wrap:anywhere}#status:empty,#warning:empty{display:none}@media(max-width:780px){.layout{grid-template-columns:1fr}}
 h1 small{display:inline-block;font-size:.43em;font-weight:550;vertical-align:middle;color:#506a78}.sample{color:#215c85;font-size:.88rem}.upload{background:#eff7f5;border:1px dashed #529286;padding:16px;color:#164e43}.upload input{max-width:100%}#qty{width:100%;padding:7px;border:1px solid #bacbdd;border-radius:7px;font:inherit;color:inherit}#pdf{background:#155849;color:#fff;border-color:#155849;padding:9px 18px}.exports button{min-height:42px}.bar{gap:12px;flex-wrap:wrap}details{margin:12px 0}#cutFile{display:block;max-width:100%}
 #unit{display:block;width:100%;height:auto;background:#f3f6f8;border-radius:8px;margin-top:9px}.upload small{display:block;font-weight:500;margin:4px}
+#cutDrop{display:block;margin:12px 0 6px;background:#f3f7fc;border-color:#7e9cbd;color:#21476e}
+.upload:focus-within{outline:2px solid #275f91;outline-offset:2px}
+#cutDrop.over{background:#e7f0fc;outline:2px solid #527eac}
+#traceInfo,#cutInfo{font-size:.88rem;color:#36596e;overflow-wrap:anywhere}
+#traceInfo:empty,#cutInfo:empty{display:none}
+#nativeAi{color:#67401a;border-color:#c5a981;background:#fff8ec}
+
+/* A dedicated three-panel workbench keeps the sheet independent of tool length. */
+.sticker-shell{width:100%;max-width:none;margin:0;padding:10px 12px;display:flex;flex-direction:column;gap:10px;box-sizing:border-box}
+.sheet-toolbar,.sheet-stage,.sheet-right section,#sourcePanel{background:white;border:1px solid #d3dfeb;border-radius:10px}
+.sheet-toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:6px 12px}
+.sheet-toolbar .pager{margin:0 0 0 auto;gap:10px}
+.sheet-toolbar label{margin:0}
+.sheet-layout{display:grid;grid-template-columns:clamp(220px,21vw,308px) minmax(0,1fr) clamp(240px,23vw,330px);gap:10px;align-items:stretch;min-height:0;flex:1}
+.sheet-layout.source-hidden{grid-template-columns:minmax(0,1fr) clamp(240px,23vw,330px)}
+.sheet-layout #sourcePanel{grid-row:auto;min-width:0;padding:14px;overflow:auto}
+.sheet-right{min-width:0;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.sheet-right section{padding:14px}.sheet-right section:last-child{flex:1}
+.sheet-layout h1,.sheet-layout h2{font-size:17px;margin:0 0 10px;line-height:1.45}
+.sheet-layout h3{margin:16px 0 6px;font-size:15px}
+.sheet-right #detailView{margin:0}.sheet-right #detailView summary{font-weight:700;font-size:15px}
+.sheet-stage{padding:0;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.sheet-title{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px}.sheet-title h1{margin:0}
+.sheet-stage .paper{display:grid;place-items:center;flex:1;min-height:0;padding:14px;border-radius:0;background-color:#e8eff6;background-image:radial-gradient(#c9d8e6 1px,transparent 1px);background-size:16px 16px;container-type:size}
+.sheet-stage #sheet{width:min(100cqw,100cqh);height:auto;max-width:100%;max-height:100%;margin:auto}
+.sheet-stage #summary{margin:0;font-size:13px}.sheet-stage #warning{margin:0;padding:8px}
+.sticker-shell #status{margin:0;color:#365574}.sticker-shell #status:empty{display:none}
+#stickerExport{width:min(590px,94vw);max-height:88dvh;overflow:auto;border:1px solid #bccddd;border-radius:12px;padding:20px;color:#183046}
+#stickerExport::backdrop{background:#10253a80}
+#stickerExport .bar{display:flex;justify-content:space-between}
+#stickerExport small{display:block}
+@media(min-width:980px){.sticker-studio{display:flex;flex-direction:column;height:100dvh;overflow:hidden}.sticker-studio .app-header{flex:none}.sticker-shell{flex:1;min-height:0}}
+@media(max-width:979px){.sheet-layout,.sheet-layout.source-hidden{grid-template-columns:minmax(0,1fr) minmax(230px,.55fr)}.sheet-stage{grid-column:1;grid-row:1}.sheet-stage .paper{min-height:clamp(290px,49vw,500px)}.sheet-layout #sourcePanel{grid-column:1;grid-row:2}.sheet-right{grid-column:2;grid-row:1/span 2}}
+@media(max-width:690px){.sheet-layout,.sheet-layout.source-hidden{display:flex;flex-direction:column}.sheet-stage{order:-1}.sheet-toolbar{gap:6px}.sheet-toolbar .pager{width:100%;justify-content:space-between}.sticker-shell{padding:7px}.sheet-stage .paper{min-height:min(90vw,440px)}}
+@media(max-width:979px){
+ .sheet-stage .paper{container-type:normal;display:flex;align-items:center;justify-content:center}
+ .sheet-stage #sheet{width:min(100%,460px);height:auto;max-height:none}
+}

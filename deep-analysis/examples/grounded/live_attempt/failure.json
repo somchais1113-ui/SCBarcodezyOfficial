@@ -1,0 +1,5 @@
+{
+  "status": "inference_failed",
+  "error": "No module named 'transformers'",
+  "type": "ModuleNotFoundError"
+}

@@ -1,3 +1,11 @@
+# SC Barcodezy V2.4.3 — Auto Pen Outline
+
+หน้าแรก → ออกแบบกล่องลัง → Product Trace → วางรูปปากกาหนึ่งด้ามบนพื้นเรียบหรือโปร่งใส โปรแกรมคำนวณโครงเส้นในเครื่องอัตโนมัติ กำหนดความยาวพิมพ์ ความหนาเส้น และช่องไฟเป้าหมาย แล้วกด **เพิ่มลงกล่อง** เพื่อวางลงบนแผงที่เลือก หรือ **ดาวน์โหลด Clean SVG** เพื่อรับเฉพาะภาพเวกเตอร์ พรีวิวสามมิติและไฟล์พิมพ์ใช้ชิ้นงานที่วางแล้ว
+
+หากต้องเปลี่ยนระดับรายละเอียดสำหรับขนาดใหม่ ให้ตั้งความยาวใน Product Trace ก่อนเพิ่มชิ้นงาน การลากย่อขยายชิ้นงานที่วางแล้วเป็นการสเกลเวกเตอร์ ใช้หมึกตามโหมดกล่อง ตรวจเส้นและปรู๊ฟตามสเปกโรงพิมพ์ก่อนผลิต
+
+รวม Carton Studio และ Deep Analysis จาก V2.4.2, Sticker Studio รุ่นไดคัทตามภาพและส่งต่อ Illustrator และระบบถอดเส้นปากกา SCWork AI Core V0.4.0 ลิงก์ห้องทดลองใน Product Trace เปิดโหมดเดี่ยวพร้อมเครื่องมือ DINO/SAM ระบบถอดเส้นปากกาอัตโนมัติทำงานได้โดยไม่ต้องเปิด Python service
+
 # Carton Studio V2.3.8 update
 
 See [CARTON_V2.3.8_CHANGELOG.md](CARTON_V2.3.8_CHANGELOG.md) for Typography, single-row toolbar, header ink controls, and test results. Other modules are unchanged.
@@ -228,3 +236,9 @@ SVG Editable มีฟอนต์ฝัง แต่บางโปรแกร
 
 ## V2.3.1 — Carton Studio
 See [CARTON_V2.3.1_CHANGELOG.md](CARTON_V2.3.1_CHANGELOG.md) for changes, assumptions and validation.
+
+## V2.4.1 experimental Grounded Deep Analysis
+See [DEEP_ANALYSIS_V2.4.1.md](DEEP_ANALYSIS_V2.4.1.md) for local Python setup, integration contract, and limitations. Existing V2.4.0 workflows remain available.
+
+## V2.4.2 connection repair
+Start with `START_BARCODEZY_MAC.command` or `START_BARCODEZY_WINDOWS.bat` after extracting. See [DEEP_ANALYSIS_V2.4.2.md](DEEP_ANALYSIS_V2.4.2.md) for local startup, separate health/model diagnostics, and optional authenticated remote HTTPS setup. No cloud backend is deployed by this package.

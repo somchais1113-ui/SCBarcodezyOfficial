@@ -1,0 +1,10 @@
+# Source provenance — V0.6
+
+The original SCWork implementation in `sc_outline/grounded.py` uses the published interfaces rather than copying the full upstream repositories into the ZIP. The exact upstream HF demo is bundled at `vendor/Grounded-SAM-2/grounded_sam2_hf_model_demo.py`; its Git blob SHA was verified against the fetched source. It is reference code only, not the V0.6 entry point. The adjacent Apache 2.0 license text preserves the IDEA Research copyright notice.
+
+- IDEA-Research Grounded-SAM-2, [HF image demo](https://github.com/IDEA-Research/Grounded-SAM-2/blob/main/grounded_sam2_hf_model_demo.py), fetched through GitHub file API; reviewed blob SHA `0acde45f3cbbc8b08f5d3e908dac59c0bf471b25`. Pattern: text-conditioned boxes, box-prompted SAM masks, original image coordinates. [Apache 2.0 license](https://github.com/IDEA-Research/Grounded-SAM-2/blob/main/LICENSE).
+- [Grounding DINO](https://github.com/IDEA-Research/GroundingDINO) and [HF processor documentation](https://huggingface.co/docs/transformers/main/model_doc/grounding-dino). HF detector ID `IDEA-Research/grounding-dino-tiny`.
+- [Meta SAM2](https://github.com/facebookresearch/sam2), [Transformers 4.57.1 SAM2 docs](https://huggingface.co/docs/transformers/v4.57.1/en/model_doc/sam2). HF model ID `facebook/sam2.1-hiera-tiny`.
+- [Grounded SAM 2 README](https://github.com/IDEA-Research/Grounded-SAM-2/blob/main/README.md): sliced inference inspiration. SCWork uses its own overlapping axis crop algorithm, not the SAHI library.
+
+The standalone adapter uses the Transformers SAM2 implementation instead of upstream native SAM2ImagePredictor to minimize native build dependencies. Verify installed model/repository licenses and pinned revisions for deployment. No claim of official endorsement. Full upstream repositories and weights are NOT included: direct Git clone and file download failed in this runtime. The reviewed demo was obtained via the GitHub file API. `scripts/fetch_upstream.py` retrieves the reviewed demo and license and optionally clones three repositories, recording commit IDs, on an internet-enabled machine. It never executes upstream code.

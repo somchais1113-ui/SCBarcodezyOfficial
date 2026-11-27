@@ -1,0 +1,214 @@
+{
+  "pen_v03_minimal": {
+    "paths": 1,
+    "geometry": {
+      "mask_iou": 0.9828197464701639,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 0.14876462938881665,
+      "method": "bounded-cubic",
+      "vertices": 34,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "pen_v03_structural": {
+    "paths": 11,
+    "geometry": {
+      "mask_iou": 0.9828197464701639,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 0.14876462938881665,
+      "method": "bounded-cubic",
+      "vertices": 34,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "pen_v03_structural_annotated": {
+    "paths": 11,
+    "geometry": {
+      "mask_iou": 0.9828197464701639,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 0.14876462938881665,
+      "method": "bounded-cubic",
+      "vertices": 34,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "pen_v03_detail": {
+    "paths": 13,
+    "geometry": {
+      "mask_iou": 0.9828197464701639,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 0.14876462938881665,
+      "method": "bounded-cubic",
+      "vertices": 34,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "pen_v03_candidates_legacy": {
+    "paths": 8,
+    "geometry": {
+      "mask_iou": 0.9960958996563146,
+      "max_boundary_error_px": 1.0,
+      "area_change_pct": -0.008322496749024707,
+      "method": "legacy",
+      "vertices": 304,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    },
+    "candidate_count": 7
+  },
+  "pen_v03_candidates_optimized": {
+    "paths": 6,
+    "geometry": {
+      "mask_iou": 0.9828197464701639,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 0.14876462938881665,
+      "method": "bounded-cubic",
+      "vertices": 34,
+      "legacy_vertices": 304,
+      "source_vertices": 1559,
+      "legacy_metrics": {
+        "mask_iou": 0.9960958996563146,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": -0.008322496749024707
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    },
+    "candidate_count": 5
+  },
+  "synthetic_ballpoint": {
+    "paths": 1,
+    "geometry": {
+      "mask_iou": 0.9802524492491017,
+      "max_boundary_error_px": 2.0,
+      "area_change_pct": 1.9133212250266172,
+      "method": "bounded-cubic",
+      "vertices": 10,
+      "legacy_vertices": 52,
+      "source_vertices": 96,
+      "legacy_metrics": {
+        "mask_iou": 0.9994365315385819,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": 0.012525834533725808
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "synthetic_gel": {
+    "paths": 1,
+    "geometry": {
+      "mask_iou": 0.9845758354755784,
+      "max_boundary_error_px": 1.4142135381698608,
+      "area_change_pct": 1.2449717971190364,
+      "method": "bounded-cubic",
+      "vertices": 11,
+      "legacy_vertices": 21,
+      "source_vertices": 103,
+      "legacy_metrics": {
+        "mask_iou": 0.9996629743635833,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": 0.002247241511045192
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "synthetic_pencil": {
+    "paths": 1,
+    "geometry": {
+      "mask_iou": 0.9968277466426986,
+      "max_boundary_error_px": 1.4142135381698608,
+      "area_change_pct": 0.1554550593555681,
+      "method": "bounded-cubic",
+      "vertices": 14,
+      "legacy_vertices": 58,
+      "source_vertices": 74,
+      "legacy_metrics": {
+        "mask_iou": 0.9997527200791295,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": 0.0035330695308083662
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  },
+  "synthetic_highlighter": {
+    "paths": 1,
+    "geometry": {
+      "mask_iou": 0.9954709001388714,
+      "max_boundary_error_px": 1.0,
+      "area_change_pct": 0.3596837318375561,
+      "method": "bounded-cubic",
+      "vertices": 12,
+      "legacy_vertices": 22,
+      "source_vertices": 52,
+      "legacy_metrics": {
+        "mask_iou": 0.9998415741195482,
+        "max_boundary_error_px": 1.0,
+        "area_change_pct": 0.01584509831883507
+      },
+      "geometry_tolerance_px": 2.0,
+      "min_iou": 0.98,
+      "within_guard": true,
+      "reference": "segmented source mask; raster-sampled curve; not physical dimensions"
+    }
+  }
+}

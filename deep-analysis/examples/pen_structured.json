@@ -1,0 +1,375 @@
+{
+  "engine": "structured",
+  "width": 571,
+  "height": 1157,
+  "canvas_width": 1098.592,
+  "canvas_height": 1157,
+  "paths": 11,
+  "parts": [
+    {
+      "id": "cap-top",
+      "name": "Cap finial",
+      "kind": "seam",
+      "points": [
+        [
+          0.791228,
+          0.032872
+        ],
+        [
+          0.84386,
+          0.039792
+        ],
+        [
+          0.898246,
+          0.051038
+        ]
+      ],
+      "anchor": [
+        0.845614,
+        0.025952
+      ],
+      "label": true,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "cap-body",
+      "name": "Cap body",
+      "kind": "label",
+      "points": [],
+      "anchor": [
+        0.791228,
+        0.08564
+      ],
+      "label": true,
+      "smooth": false,
+      "reviewed": true
+    },
+    {
+      "id": "clip",
+      "name": "Clip",
+      "kind": "closed",
+      "points": [
+        [
+          0.752632,
+          0.111592
+        ],
+        [
+          0.780702,
+          0.119377
+        ],
+        [
+          0.789474,
+          0.132353
+        ],
+        [
+          0.775439,
+          0.155709
+        ],
+        [
+          0.738596,
+          0.203287
+        ],
+        [
+          0.689474,
+          0.263841
+        ],
+        [
+          0.633333,
+          0.338235
+        ],
+        [
+          0.614035,
+          0.358131
+        ],
+        [
+          0.594737,
+          0.363322
+        ],
+        [
+          0.57193,
+          0.355536
+        ],
+        [
+          0.57193,
+          0.345156
+        ],
+        [
+          0.6,
+          0.304498
+        ],
+        [
+          0.640351,
+          0.24827
+        ],
+        [
+          0.685965,
+          0.186851
+        ],
+        [
+          0.719298,
+          0.139273
+        ],
+        [
+          0.731579,
+          0.121972
+        ]
+      ],
+      "anchor": [
+        0.733333,
+        0.185986
+      ],
+      "label": true,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "ring-top",
+      "name": "Center ring",
+      "kind": "seam",
+      "points": [
+        [
+          0.508772,
+          0.367647
+        ],
+        [
+          0.584211,
+          0.379758
+        ],
+        [
+          0.668421,
+          0.395329
+        ]
+      ],
+      "anchor": [
+        0.608772,
+        0.392734
+      ],
+      "label": true,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "ring-middle",
+      "name": "Ring seam",
+      "kind": "seam",
+      "points": [
+        [
+          0.5,
+          0.380623
+        ],
+        [
+          0.580702,
+          0.392734
+        ],
+        [
+          0.664912,
+          0.408304
+        ]
+      ],
+      "anchor": [
+        0.584211,
+        0.393599
+      ],
+      "label": false,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "ring-bottom",
+      "name": "Ring lower edge",
+      "kind": "seam",
+      "points": [
+        [
+          0.498246,
+          0.397059
+        ],
+        [
+          0.573684,
+          0.410035
+        ],
+        [
+          0.652632,
+          0.420415
+        ]
+      ],
+      "anchor": [
+        0.578947,
+        0.410035
+      ],
+      "label": false,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "barrel",
+      "name": "Barrel",
+      "kind": "label",
+      "points": [],
+      "anchor": [
+        0.487719,
+        0.520761
+      ],
+      "label": true,
+      "smooth": false,
+      "reviewed": true
+    },
+    {
+      "id": "grip",
+      "name": "Grip section",
+      "kind": "seam",
+      "points": [
+        [
+          0.277193,
+          0.695502
+        ],
+        [
+          0.34386,
+          0.706747
+        ],
+        [
+          0.410526,
+          0.718858
+        ]
+      ],
+      "anchor": [
+        0.287719,
+        0.763841
+      ],
+      "label": true,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "nib-collar",
+      "name": "Nib collar",
+      "kind": "seam",
+      "points": [
+        [
+          0.184211,
+          0.84083
+        ],
+        [
+          0.233333,
+          0.849481
+        ],
+        [
+          0.292982,
+          0.858131
+        ]
+      ],
+      "anchor": [
+        0.235088,
+        0.855536
+      ],
+      "label": true,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "nib-base",
+      "name": "Nib base",
+      "kind": "seam",
+      "points": [
+        [
+          0.185965,
+          0.862457
+        ],
+        [
+          0.226316,
+          0.869377
+        ],
+        [
+          0.268421,
+          0.875433
+        ]
+      ],
+      "anchor": [
+        0.229825,
+        0.870242
+      ],
+      "label": false,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "nib",
+      "name": "Nib",
+      "kind": "label",
+      "points": [],
+      "anchor": [
+        0.194737,
+        0.923875
+      ],
+      "label": true,
+      "smooth": false,
+      "reviewed": true
+    },
+    {
+      "id": "nib-slit",
+      "name": "Nib slit",
+      "kind": "line",
+      "points": [
+        [
+          0.184211,
+          0.92474
+        ],
+        [
+          0.17193,
+          0.949827
+        ],
+        [
+          0.142105,
+          0.982699
+        ]
+      ],
+      "anchor": [
+        0.178947,
+        0.934256
+      ],
+      "label": false,
+      "smooth": true,
+      "reviewed": true
+    },
+    {
+      "id": "breather",
+      "name": "Breather hole",
+      "kind": "closed",
+      "points": [
+        [
+          0.177193,
+          0.922145
+        ],
+        [
+          0.184211,
+          0.92128
+        ],
+        [
+          0.189474,
+          0.92474
+        ],
+        [
+          0.184211,
+          0.929066
+        ],
+        [
+          0.177193,
+          0.927336
+        ]
+      ],
+      "anchor": [
+        0.184211,
+        0.92474
+      ],
+      "label": false,
+      "smooth": true,
+      "reviewed": true
+    }
+  ],
+  "warnings": [
+    "Geometry is locked to the visible source silhouette, not engineering dimensions.",
+    "Part boundaries are user-authored or unverified cross-axis candidates. Review before use."
+  ],
+  "coordinate_system": "normalized EXIF-corrected image, x/y in [0,1]",
+  "auto_suggested": false
+}

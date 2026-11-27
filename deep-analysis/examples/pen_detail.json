@@ -1,0 +1,10 @@
+{
+  "engine": "local",
+  "width": 571,
+  "height": 1157,
+  "paths": 84,
+  "vertices": 439,
+  "warnings": [
+    "Internal lines are image edges, not recognized product parts. Review reflections and missing seams."
+  ]
+}
