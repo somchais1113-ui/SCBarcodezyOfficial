@@ -119,3 +119,11 @@ section{box-shadow:0 10px 32px #1c395410}
 @media(min-width:791px) and (max-width:1049px){.choices section:last-child{grid-column:1/-1}}
 .sticker-stage{background:#e6f1ed;display:grid;place-items:center}.sticker-stage img{height:100%;width:100%;object-fit:contain}
 @media(min-width:791px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.choices section:last-child{grid-column:auto}}
+
+/* Approved homepage production-motion covers. Scoped to the four entry cards. */
+.stage.production-stage{display:grid;grid-template: minmax(0,1fr)/minmax(0,1fr);place-items:center;background-image:none;overflow:hidden}
+.production-stage.barcode-stage{background:#edf2f8}
+.production-stage.studio-stage{background-color:#e8f0fa;background-image:linear-gradient(#ccdced80 1px,transparent 1px),linear-gradient(90deg,#ccdced80 1px,transparent 1px);background-size:24px 24px}
+.production-stage.carton-stage{background:#edf0f4}
+.production-stage.sticker-stage{background:#e5efea}
+.production-stage .cover-motion{display:block;width:100%;height:100%;min-width:0;min-height:0;pointer-events:none}
