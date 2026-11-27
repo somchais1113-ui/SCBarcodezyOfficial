@@ -76,3 +76,22 @@ main.frame>.workspace-heading{scroll-margin-top:24px}
  .premium-hero .is-active .premium-copy{opacity:1}
  .premium-hero .hero-slide,.premium-hero .hero-step{transition:none!important}
 }
+
+/* Compact hero: retain cinematic composition; let the tallest slide determine
+   the minimum content height, including wrapped CTAs and enlarged text. */
+.premium-hero{height:auto;min-height:clamp(350px,34vw,500px)}
+.premium-hero .hero-slides{position:relative;inset:auto;display:grid;grid-template-columns:minmax(0,1fr);min-height:inherit}
+.premium-hero .premium-slide{position:relative;inset:auto;grid-area:1/1;display:flex;align-items:flex-end;min-width:0;padding:24px var(--hero-pad) clamp(82px,6.2vw,104px)}
+.premium-hero .premium-copy{position:relative;left:auto;right:auto;bottom:auto;width:100%;min-width:0;max-width:min(760px,76%)}
+.premium-hero .premium-controls{bottom:clamp(14px,1.8vw,26px)}
+@media(max-width:790px){
+ .premium-hero{height:auto;min-height:clamp(360px,54vw,430px)}
+ .premium-hero .premium-slide{padding:20px var(--hero-pad) 74px}
+ .premium-hero .premium-copy{max-width:100%}
+ .premium-hero .premium-controls{bottom:14px}
+}
+@media(max-width:420px){
+ .premium-hero{height:auto;min-height:360px}
+ .premium-hero .premium-slide{padding-top:18px;padding-bottom:68px}
+ .premium-hero .premium-controls{bottom:12px}
+}
