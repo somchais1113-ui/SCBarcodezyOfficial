@@ -1,0 +1,53 @@
+/* Production Workspace module layout. Scoped to homepage, independent of hero/engine. */
+main.frame>.workspace-heading{margin-block:clamp(30px,4vw,56px) 20px;align-items:center;gap:16px}
+.workspace-intro{border-left:3px solid var(--brand-orange);padding-left:15px;min-width:0}
+.workspace-heading .workspace-kicker{font-size:11px;font-weight:750;letter-spacing:.16em;color:#53677e;margin-bottom:5px}
+.workspace-heading h2{font-size:clamp(24px,2.65vw,36px);line-height:1.25;letter-spacing:-.025em;font-weight:750}
+.workspace-heading h2 .workspace-period{color:var(--brand-orange);margin-left:2px}
+.workspace-heading .workspace-count{display:flex;align-items:center;gap:9px;color:#51647a;letter-spacing:.14em;font-size:10px;border:1px solid #d7e0ea;background:#fff;padding:6px 12px;border-radius:8px}
+.workspace-count strong{color:#13243b;font-size:22px;font-weight:750;line-height:1;letter-spacing:-.04em}
+main.frame>.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,1.7vw,24px)}
+.choices .workspace-module{display:flex;flex-direction:column;position:relative;min-width:0;background:#fff;border:1px solid #d6dfe9;border-radius:16px;overflow:hidden;box-shadow:none;transition:border-color .2s ease}
+.choices .workspace-module:hover,.choices .workspace-module:focus-within{border-color:#8299b8}
+.module-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:19px 20px 16px}
+.module-title{min-width:0}
+.module-label{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:750;color:#52677f;letter-spacing:.09em;line-height:1.4;margin:0 0 7px}
+.module-label span:first-child{font-variant-numeric:tabular-nums;color:#9d4400;font-weight:800;border-right:1px solid #cbd6e2;padding-right:9px;letter-spacing:.01em}
+.module-heading h2{font-size:clamp(21px,2.05vw,28px);font-weight:750;line-height:1.25;letter-spacing:-.025em;color:#13243b;margin:0}
+.module-icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border:1px solid #dce4ed;border-radius:11px;color:#253f60;background:#f1f5fa;transition:background .2s,color .2s,border-color .2s}
+.module-icon svg{width:23px;height:23px}
+.workspace-module:hover .module-icon,.workspace-module:focus-within .module-icon{color:#fff;background:#13243b;border-color:#13243b}
+.module-visual{margin:0 14px;border:1px solid #dce4eb;border-radius:10px;overflow:hidden;min-width:0}
+.choices .workspace-module .stage{height:clamp(188px,19vw,236px);border:0;margin:0;border-radius:0}
+.choices .workspace-module .module-body{padding:15px 20px 20px;flex:1;display:flex;flex-direction:column;gap:16px}
+.choices .workspace-module .module-body>p{margin:0;color:#4b6077;line-height:1.6;font-size:clamp(14px,1.22vw,16px);max-width:none;flex:1}
+.choices .workspace-module .module-body nav,.choices .workspace-module .module-body .actions{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;margin:0;min-height:0;align-items:stretch}
+.choices .module-barcode .module-body nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+.choices .workspace-module .button{display:flex;align-items:center;justify-content:space-between;text-align:left;gap:10px;min-width:0;min-height:46px;height:auto;padding:11px 14px;border-radius:8px;font-size:14px;font-weight:700;line-height:1.4;transition:background .18s,border-color .18s,color .18s}
+.choices .workspace-module .button span{flex:none;font-size:19px;line-height:1}
+.choices .workspace-module .button.solid{background:#13243b;border-color:#13243b;color:#fff}
+.choices .workspace-module .button.solid:hover{background:#2457ce;border-color:#2457ce}
+.choices .workspace-module .button.outline{color:#13243b;background:#f7f9fc;border-color:#cfdbe8}
+.choices .workspace-module .button.outline:hover{background:#e8eff9;border-color:#8299b8}
+.choices .workspace-module .button:focus-visible{outline:2px solid #2457ce;outline-offset:2px}
+@media(max-width:790px){
+ main.frame>.workspace-heading{margin-block:28px 15px}
+ main.frame>.choices{grid-template-columns:minmax(0,1fr);gap:15px}
+ .choices .workspace-module .stage{height:clamp(178px,42vw,236px)}
+ .module-heading{padding:16px 17px 13px}
+ .module-visual{margin-inline:12px}
+ .choices .workspace-module .module-body{padding:14px 17px 17px;gap:12px}
+}
+@media(max-width:420px){
+ .workspace-intro{padding-left:10px}
+ .workspace-heading h2{font-size:22px}
+ .workspace-heading .workspace-kicker{font-size:9px;letter-spacing:.1em}
+ .workspace-heading .workspace-count{gap:5px;padding:6px 8px;font-size:9px}
+ .workspace-count strong{font-size:18px}
+ .module-heading h2{font-size:22px}
+ .module-icon{width:38px;height:38px}
+ .module-icon svg{width:21px;height:21px}
+ .module-label{font-size:9px}
+ .choices .workspace-module .button{font-size:13px;padding:10px 12px}
+}
+@media(prefers-reduced-motion:reduce){.workspace-module,.module-icon,.workspace-module .button,.workspace-module .button span{transition:none!important;transform:none!important}}
