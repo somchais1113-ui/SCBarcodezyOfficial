@@ -25,8 +25,14 @@ main.frame>.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));g
 .choices .module-barcode .module-body nav{grid-template-columns:repeat(2,minmax(0,1fr))}
 .choices .workspace-module .button{display:flex;align-items:center;justify-content:space-between;text-align:left;gap:10px;min-width:0;min-height:46px;height:auto;padding:11px 14px;border-radius:8px;font-size:14px;font-weight:700;line-height:1.4;transition:background .18s,border-color .18s,color .18s}
 .choices .workspace-module .button span{flex:none;font-size:19px;line-height:1}
-.choices .workspace-module .button.solid{background:#13243b;border-color:#13243b;color:#fff}
-.choices .workspace-module .button.solid:hover{background:#2457ce;border-color:#2457ce}
+.choices .workspace-module .button.solid{background:#13243b;border-color:#13243b;color:#fff;position:relative;isolation:isolate}
+.choices .workspace-module .button.solid::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;background:linear-gradient(105deg,#13243b 0%,#2049a5 48%,#2457ce 76%,#3156bc 84%,#9b4d34 94%,#c04b0a 100%);transition:opacity .28s ease}
+@media(hover:hover) and (pointer:fine){
+ .choices .workspace-module .button.solid:hover{border-color:#2457ce}
+ .choices .workspace-module .button.solid:hover::before{opacity:1}
+}
+.choices .workspace-module .button.solid:focus-visible::before,.choices .workspace-module .button.solid:active::before{opacity:1}
+@media(prefers-reduced-motion:reduce){.choices .workspace-module .button.solid::before{transition:none}}
 .choices .workspace-module .button.outline{color:#13243b;background:#f7f9fc;border-color:#cfdbe8}
 .choices .workspace-module .button.outline:hover{background:#e8eff9;border-color:#8299b8}
 .choices .workspace-module .button:focus-visible{outline:2px solid #2457ce;outline-offset:2px}
